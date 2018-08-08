@@ -25,7 +25,7 @@ const monitorId = "some_given_arg";
 function convertThresholds(thresholds) {
 	let thresholdStrings = "\n";
 	Object.entries(thresholds).forEach(([key, value]) => {
-		thresholdStrings += assignmentString(key, value) + "\n"
+		thresholdStrings += assignmentString(key, value);
 	});
   return `thresholds {${thresholdStrings}}`;
 }
@@ -45,9 +45,10 @@ function literalString(value) {
 }
 
 function assignmentString(key, value) {
+	if (value === null) return "";
 	const displayValue = literalString(value);
 	// TODO logic for multiline strings
-  return `${key} = ${displayValue}`;
+  return `${key} = ${displayValue}\n`;
 }
 
 function convertOptions(options) {
@@ -63,7 +64,6 @@ function convertOptions(options) {
         result += assignmentString(key, options[key]); // TODO capture in function, surround strings in quotes
         break;
     }
-		result += "\n";
   });
   return result;
 }
@@ -86,7 +86,7 @@ function convert(key, value) {
       result += `Conversion for "${key}" not found`;
       break;
   }
-  return result + "\n";
+  return result;
 };
 
 function monitorBody() {

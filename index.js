@@ -60,6 +60,21 @@ const ALLOWED_THRESHOLD_KEYS = [
 	'unknown',
 ];
 
+const ALLOWED_OPTIONS_KEYS = [
+	'notify_no_data',
+	'new_host_delay',
+	'evaluation_delay',
+	'no_data_timeframe',
+	'renotify_interval',
+	'notify_audit',
+	'timeout_h',
+	'include_tags',
+	'require_full_window',
+	'locked',
+	'escalation_message',
+	'thresholds',
+];
+
 function convertThresholds(thresholds) {
 	let result = "\n";
 	Object.entries(thresholds).forEach(([key, value]) => {
@@ -96,32 +111,19 @@ function assignmentString(key, value) {
 }
 
 function convertOptions(options) {
-  let result = "";
-  const optionsKeys = Object.keys(options);
-  optionsKeys.forEach((key) => {
-    switch(key) {
-      case 'thresholds':
-        result += convertThresholds(options[key]);
-        break;
-			case 'notify_no_data':
-			case 'new_host_delay':
-			case 'evaluation_delay':
-			case 'no_data_timeframe':
-			case 'renotify_interval':
-			case 'notify_audit':
-			case 'timeout_h':
-			case 'include_tags':
-			case 'require_full_window':
-			case 'locked':
-			case 'escalation_message':
-        result += assignmentString(key, options[key]);
-        break;
-      default:
-				throw `Conversion for "${key}" not found`;
-				break;
-    }
-  });
-  return result;
+	let result = "";
+	Object.entries(options).forEach(([key, value]) => {
+		if (ALLOWED_OPTIONS_KEYS.includes(key)) {
+			if (key === 'thresholds') {
+				result += convertThresholds(value);
+			} else {
+				result += assignmentString(key, value);
+			}
+		} else {
+			throw `Conversion for "${key}" not found`;
+		}
+	});
+	return result;
 }
 
 function convert(key, value) {

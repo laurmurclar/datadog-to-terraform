@@ -1,18 +1,45 @@
+// const monitorJson = {
+// 	"name": "Status",
+// 	"type": "metric alert",
+// 	"query": "sum(last_5m):sum:production.controllers.Api.status{controller:public.appstore.apppackagescontroller} by {status}.as_count() > 50",
+// 	"message": "{{#is_alert}}\nAlert alert! Fix the thing. \n\nLogs etc go here\n{{/is_alert}} \n\n\n{{#is_alert_recovery}}\nYaaaay\n{{/is_alert_recovery}}",
+// 	"tags": ["team-app-framework", "terraform:true"],
+// 	"options": {
+// 		"notify_audit": false,
+// 		"locked": false,
+// 		"timeout_h": 0,
+// 		"new_host_delay": 300,
+// 		"require_full_window": true,
+// 		"notify_no_data": false,
+// 		"renotify_interval": "0",
+// 		"escalation_message": "",
+// 		"no_data_timeframe": null,
+// 		"include_tags": false,
+// 		"thresholds": {
+// 			"critical": 50
+// 		}
+// 	}
+// };
+
 const monitorJson = {
-	"name": "Status",
+	"name": "example",
 	"type": "metric alert",
-	"query": "sum(last_5m):sum:production.controllers.Api.status{controller:public.appstore.apppackagescontroller} by {status}.as_count() > 50",
-	"message": "{{#is_alert}}\nAlert alert! Fix the thing. \n\nLogs etc go here\n{{/is_alert}} \n\n\n{{#is_alert_recovery}}\nYaaaay\n{{/is_alert_recovery}}",
-	"tags": ["team-app-framework", "terraform:true"],
+	"query": "sum(last_5m):avg:production.controllers.Api.status{status:500}.as_count() > 50",
+	"message": "boop bopp @pagerduty-team-app-framework",
+	"tags": [
+		"service:buildkite-test-pipeline",
+		"team-operator"
+	],
 	"options": {
-		"notify_audit": false,
-		"locked": false,
+		"notify_audit": true,
+		"locked": true,
 		"timeout_h": 0,
 		"new_host_delay": 300,
 		"require_full_window": true,
 		"notify_no_data": false,
-		"renotify_interval": "0",
-		"escalation_message": "",
+		"renotify_interval": 10,
+		"evaluation_delay": 5,
+		"escalation_message": "dffdf",
 		"no_data_timeframe": null,
 		"include_tags": false,
 		"thresholds": {
@@ -20,6 +47,7 @@ const monitorJson = {
 		}
 	}
 };
+
 const monitorId = "some_given_arg";
 
 function convertThresholds(thresholds) {
@@ -63,9 +91,22 @@ function convertOptions(options) {
       case 'thresholds':
         result += convertThresholds(options[key]);
         break;
-      default:
+			case 'notify_no_data':
+			case 'new_host_delay':
+			case 'evaluation_delay':
+			case 'no_data_timeframe':
+			case 'renotify_interval':
+			case 'notify_audit':
+			case 'timeout_h':
+			case 'include_tags':
+			case 'require_full_window':
+			case 'locked':
+			case 'escalation_message':
         result += assignmentString(key, options[key]);
         break;
+      default:
+				throw `Conversion for "${key}" not found`;
+				break;
     }
   });
   return result;
@@ -79,7 +120,6 @@ function convert(key, value) {
     case 'query':
 		case 'message':
 		case 'tags':
-		case 'escalation_message':
       result += assignmentString(key, monitorJson[key]);
       break;
     case 'options':

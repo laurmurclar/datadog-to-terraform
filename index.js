@@ -51,22 +51,23 @@ const monitorJson = {
 
 const monitorId = "some_given_arg";
 
+const ALLOWED_THRESHOLD_KEYS = [
+	'ok',
+	'critical',
+	'critical_recovery',
+	'warning',
+	'warning_recovery',
+	'unknown',
+];
+
 function convertThresholds(thresholds) {
 	let result = "\n";
 	Object.entries(thresholds).forEach(([key, value]) => {
-		switch(key) {
-	    case 'ok':
-	    case 'critical':
-			case 'critical_recovery':
-	    case 'warning':
-			case 'warning_recovery':
-			case 'unknown':
-	      result += assignmentString(key, value);
-	      break;
-	    default:
-	      throw `Conversion for "${key}" not found`;
-	      break;
-	  }
+		if (ALLOWED_THRESHOLD_KEYS.includes(key)) {
+			result += assignmentString(key, value);
+		} else {
+			throw `Conversion for "${key}" not found`;
+		}
 	});
   return `thresholds {${result}}`;
 }

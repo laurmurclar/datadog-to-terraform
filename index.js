@@ -25,6 +25,7 @@ const monitorId = "some_given_arg";
 function convertThresholds(thresholds) {
 	let thresholdStrings = "\n";
 	Object.entries(thresholds).forEach(([key, value]) => {
+		// TODO check threshold in allowed keys
 		thresholdStrings += assignmentString(key, value);
 	});
   return `thresholds {${thresholdStrings}}`;
@@ -63,14 +64,13 @@ function convertOptions(options) {
         result += convertThresholds(options[key]);
         break;
       default:
-        result += assignmentString(key, options[key]); // TODO capture in function, surround strings in quotes
+        result += assignmentString(key, options[key]);
         break;
     }
   });
   return result;
 }
 
-// TODO can make this a recursive tree thing, would probs be better
 function convert(key, value) {
   let result = "";
   switch(key) {
@@ -79,13 +79,14 @@ function convert(key, value) {
     case 'query':
 		case 'message':
 		case 'tags':
-      result += assignmentString(key, monitorJson[key]); // TODO capture in function, surround strings in quotes
+		case 'escalation_message':
+      result += assignmentString(key, monitorJson[key]);
       break;
     case 'options':
       result += convertOptions(value);
       break;
     default:
-      result += `Conversion for "${key}" not found`;
+      throw `Conversion for "${key}" not found`;
       break;
   }
   return result;

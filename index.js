@@ -156,7 +156,7 @@ function monitorBody(monitorJson) {
 };
 
 function generateTerraformCode(resourceName, monitorJson) {
-	if (!monitorJson || !REQUIRED_KEYS.every((key) => key in monitorJson)) {
+	if (!resourceName || !monitorJson || !REQUIRED_KEYS.every((key) => key in monitorJson)) {
 		throw "You're missing a required key.";
 	}
 	return `resource "datadog_monitor" "${resourceName}" {${monitorBody(monitorJson)}}`;

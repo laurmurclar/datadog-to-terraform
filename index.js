@@ -43,7 +43,8 @@ const monitorJson = {
 		"no_data_timeframe": null,
 		"include_tags": false,
 		"thresholds": {
-			"critical": 50
+			"critical": 50,
+			"warning": 70
 		}
 	}
 };
@@ -51,12 +52,23 @@ const monitorJson = {
 const monitorId = "some_given_arg";
 
 function convertThresholds(thresholds) {
-	let thresholdStrings = "\n";
+	let result = "\n";
 	Object.entries(thresholds).forEach(([key, value]) => {
-		// TODO check threshold in allowed keys
-		thresholdStrings += assignmentString(key, value);
+		switch(key) {
+	    case 'ok':
+	    case 'critical':
+			case 'critical_recovery':
+	    case 'warning':
+			case 'warning_recovery':
+			case 'unknown':
+	      result += assignmentString(key, value);
+	      break;
+	    default:
+	      throw `Conversion for "${key}" not found`;
+	      break;
+	  }
 	});
-  return `thresholds {${thresholdStrings}}`;
+  return `thresholds {${result}}`;
 }
 
 function literalString(value) {
@@ -83,7 +95,6 @@ function assignmentString(key, value) {
 }
 
 function convertOptions(options) {
-  // pull thresholds out to top-level
   let result = "";
   const optionsKeys = Object.keys(options);
   optionsKeys.forEach((key) => {

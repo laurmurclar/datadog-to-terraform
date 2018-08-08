@@ -51,6 +51,13 @@ const monitorJson = {
 
 const monitorId = "some_given_arg";
 
+const REQUIRED_KEYS = [
+	'name',
+	'type',
+	'query',
+	'message',
+];
+
 const ALLOWED_THRESHOLD_KEYS = [
 	'ok',
 	'critical',
@@ -127,41 +134,32 @@ function convertOptions(options) {
 }
 
 function convert(key, value) {
-  let result = "";
-  switch(key) {
-    case 'name':
-    case 'type':
-    case 'query':
-		case 'message':
-		case 'tags':
-      result += assignmentString(key, monitorJson[key]);
-      break;
-    case 'options':
-      result += convertOptions(value);
-      break;
-    default:
-      throw `Conversion for "${key}" not found`;
-      break;
-  }
-  return result;
-};
+	let result = "";
+	if (REQUIRED_KEYS.includes(key) || key === 'tags') {
+		result += assignmentString(key, value);
+	} else if (key === 'options') {
+		result += convertOptions(value);
+	} else {
+		throw `Conversion for "${key}" not found`;
+	}
+	return result;
+}
 
 function monitorBody(monitorJson) {
   let result = "\n";
-  const keys = Object.keys(monitorJson);
 
-  keys.forEach((key) => {
-    result += convert(key, monitorJson[key]);
+  Object.entries(monitorJson).forEach(([key, value]) => {
+    result += convert(key, value);
   });
 
   return result;
 };
 
-function generateTerraformCode(monitorJson) {
-	if (!monitorJson || !monitorJson.type || !monitorJson.name || !monitorJson.query || !monitorJson.message) {
-		throw 'You need to provide a type, name, query and message.';
+function generateTerraformCode(resourceName, monitorJson) {
+	if (!monitorJson || !REQUIRED_KEYS.every((key) => key in monitorJson)) {
+		throw "You're missing a required key.";
 	}
-	return `resource "datadog_monitor" "${monitorId}" {${monitorBody(monitorJson)}}`;
+	return `resource "datadog_monitor" "${resourceName}" {${monitorBody(monitorJson)}}`;
 }
 
-console.log(generateTerraformCode(monitorJson));
+console.log(generateTerraformCode(monitorId, monitorJson));

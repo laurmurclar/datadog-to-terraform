@@ -1,0 +1,15 @@
+{
+    "name": "Getting Started Example",
+    "version": "1.0",
+    "description": "Build an Extension!",
+    "manifest_version": 2,
+    "browser_action": {
+      "default_popup": "popup.html"
+    },
+    "icons": {
+      "16": "icon.png",
+      "32": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  }

@@ -32,6 +32,9 @@ function convertThresholds(thresholds) {
 
 function literalString(value) {
 	if (typeof value == 'string') {
+		if (value.includes('\n')) {
+			return `<<EOF\n${value}\nEOF`;
+		}
 		return `"${value}"`;
 	} else if (Array.isArray(value)) {
 		let result = "[";
@@ -47,7 +50,6 @@ function literalString(value) {
 function assignmentString(key, value) {
 	if (value === null) return "";
 	const displayValue = literalString(value);
-	// TODO logic for multiline strings
   return `${key} = ${displayValue}\n`;
 }
 
@@ -75,7 +77,7 @@ function convert(key, value) {
     case 'name':
     case 'type':
     case 'query':
-    case 'message': // TODO need to do the multi line message thing, or make sure new lines get escaped properly so they stay in
+		case 'message':
 		case 'tags':
       result += assignmentString(key, monitorJson[key]); // TODO capture in function, surround strings in quotes
       break;

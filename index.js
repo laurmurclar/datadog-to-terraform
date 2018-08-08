@@ -143,7 +143,7 @@ function convert(key, value) {
   return result;
 };
 
-function monitorBody() {
+function monitorBody(monitorJson) {
   let result = "\n";
   const keys = Object.keys(monitorJson);
 
@@ -154,6 +154,11 @@ function monitorBody() {
   return result;
 };
 
-const terraformMonitor = `resource "datadog_monitor" "${monitorId}" {${monitorBody()}}`;
+function generateTerraformCode(monitorJson) {
+	if (!monitorJson || !monitorJson.type || !monitorJson.name || !monitorJson.query || !monitorJson.message) {
+		throw 'You need to provide a type, name, query and message.';
+	}
+	return `resource "datadog_monitor" "${monitorId}" {${monitorBody(monitorJson)}}`;
+}
 
-console.log(terraformMonitor);
+console.log(generateTerraformCode(monitorJson));

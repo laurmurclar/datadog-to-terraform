@@ -3,13 +3,62 @@
     <title>Datadog-to-terraform Popup</title>
   </head>
   <body>
-    <h1>Resource name:</h1>
-    <input id="resourceName" placeholder="Namey namey"/>
-    <h1>Datadog JSON:</h1>
-    <textarea id="datadogJson" placeholder="gimme the thing"></textarea>
-    <button id='convertButton'>Do the thing</button>
-    <h1>Terraform Code:</h1>
-    <textarea id="result" placeholder="Aint shit yet"></textarea>
+    <style>
+      .content {
+        margin: 10px 30px;
+        width: 300px;
+      }
+      input, textarea {
+        width: 100%;
+        min-height: 30px;
+        border-radius: 4px;
+        border: 1px solid grey;
+      }
+      textarea {
+        height: 150px;
+      }
+      .inputWrapper {
+        margin-bottom: 40px;
+      }
+      button {
+        margin: 10px 0px;
+        width: 100%;
+        padding: 10px;
+        background-color: red;
+        color: white;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+      }
+      #outputWrapper {
+        margin-top: 20px;
+        opacity: 0.5;
+        pointer-events: none;
+      }
+      #outputWrapper.active {
+        opacity: 1.0;
+        pointer-events: auto;
+      }
+    </style>
+
+    <div class='content'>
+      <div class='inputWrapper'>
+        <h1>Resource name:</h1>
+        <input id="resourceName" placeholder="Gimme the name"/>
+        <h1>Datadog JSON:</h1>
+        <textarea id="datadogJson" placeholder="Gimme the thing"></textarea>
+        <button id='convertButton'>Do the thing</button>
+        <span id='onClickMessage'></span>
+      </div>
+
+      <hr/>
+
+      <div id='outputWrapper'>
+        <h1>Terraform Code:</h1>
+        <textarea id="result" placeholder="Paste your Datadog monitor JSON above to generate Terraform code..."></textarea>
+      </div>
+    </div>
+
     <script type="module" src="popup.js"></script>
   </body>
 </html>

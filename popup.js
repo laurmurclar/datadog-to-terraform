@@ -7,6 +7,9 @@ function onClick() {
   var terraformAlarmCode = generateTerraformCode(resourceName, JSON.parse(datadogJson));
   document.getElementById('result').innerHTML = terraformAlarmCode;
 
+  document.getElementById('outputWrapper').classList.add('active');
+  document.getElementById('onClickMessage').innerHTML = 'Copied to clipboard!';
+
   copyResult();
 }
 

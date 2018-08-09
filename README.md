@@ -10,3 +10,12 @@ And that's it.
 
 Click to enlarge:
 ![](http://g.recordit.co/Bk7jSES5E7.gif)
+
+### Next steps
+If you're looking to contribute, I have some ideas for what to work on next:
+- [ ] Error handling (nothing happens right now if the conversion fails)
+- [ ] Testing
+- [ ] Add an "Export to Terraform" button into the Datadog UI
+- [ ] Add an option to use Intercom defaults for things like `notify_no_data`
+- [ ] Format the output nicely
+- [ ] Clean up the code (could restructure or DRY things up a bit, etc.)

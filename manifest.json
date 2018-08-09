@@ -1,7 +1,7 @@
 {
-    "name": "Getting Started Example",
+    "name": "Datadog-to-terraform converter",
     "version": "1.0",
-    "description": "Build an Extension!",
+    "description": "Copy ya monitor, get terraform code",
     "manifest_version": 2,
     "browser_action": {
       "default_popup": "popup.html"

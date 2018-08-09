@@ -27,7 +27,16 @@ const ALLOWED_OPTIONS_KEYS = [
 	'locked',
 	'escalation_message',
 	'thresholds',
+	'silenced',
 ];
+
+function convertSilenced(value) {
+	let result = "\n";
+	Object.entries(value).forEach(([key, value]) => {
+		result += assignmentString(key, value);
+	});
+  return `silenced {${result}}`;
+}
 
 function convertThresholds(thresholds) {
 	let result = "\n";
@@ -70,6 +79,8 @@ function convertOptions(options) {
 		if (ALLOWED_OPTIONS_KEYS.includes(key)) {
 			if (key === 'thresholds') {
 				result += convertThresholds(value);
+			} else if (key === 'silenced') {
+				result += convertSilenced(value);
 			} else {
 				result += assignmentString(key, value);
 			}

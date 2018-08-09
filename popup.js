@@ -2,9 +2,11 @@ import { generateTerraformCode } from './generator.js';
 
 function onClick() {
   // get the input
+  var resourceName = document.getElementById('resourceName').value;
   var datadogJson = document.getElementById('datadogJson').value;
+
   // convert it
-  var terraformAlarmCode = generateTerraformCode("some_name", JSON.parse(datadogJson));
+  var terraformAlarmCode = generateTerraformCode(resourceName, JSON.parse(datadogJson));
 
   // add to the result input
   document.getElementById('result').innerHTML = terraformAlarmCode;

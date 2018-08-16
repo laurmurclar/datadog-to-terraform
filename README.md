@@ -1,5 +1,5 @@
 # Datadog to Terraform Converter
-Converts Datadog monitor JSON into Terraform alarm code.
+Converts Datadog monitor JSON into Terraform alarm code. [Install it here.](https://chrome.google.com/webstore/detail/datadog-to-terraform-conv/lafmglpipgongjmbbjngmboifpaodemk)
 
 ### How to Use
 1. Create your monitor (but don't save) in the Datadog UI and copy the monitor JSON.
@@ -19,3 +19,6 @@ If you're looking to contribute, I have some ideas for what to work on next:
 - [ ] Add an option to use Intercom defaults for things like `notify_no_data`
 - [ ] Format the output nicely
 - [ ] Clean up the code (could restructure or DRY things up a bit, etc.)
+- [ ] Make this repo open-source
+- [ ] Publish the extension in the Chrome App store (not just to Intercomrades)
+- [ ] Make this available in other browsers, editors, etc.

@@ -5,15 +5,6 @@ const REQUIRED_KEYS = [
 	'message',
 ];
 
-const ALLOWED_THRESHOLD_KEYS = [
-	'ok',
-	'critical',
-	'critical_recovery',
-	'warning',
-	'warning_recovery',
-	'unknown',
-];
-
 const ALLOWED_OPTIONS_KEYS = [
 	'notify_no_data',
 	'new_host_delay',
@@ -28,27 +19,8 @@ const ALLOWED_OPTIONS_KEYS = [
 	'escalation_message',
 	'thresholds',
 	'silenced',
+	'threshold_windows',
 ];
-
-function convertSilenced(value) {
-	let result = "\n";
-	Object.entries(value).forEach(([key, value]) => {
-		result += assignmentString(key, value);
-	});
-  return `silenced {${result}}`;
-}
-
-function convertThresholds(thresholds) {
-	let result = "\n";
-	Object.entries(thresholds).forEach(([key, value]) => {
-		if (ALLOWED_THRESHOLD_KEYS.includes(key)) {
-			result += assignmentString(key, value);
-		} else {
-			throw `Conversion for "${key}" not found`;
-		}
-	});
-  return `thresholds {${result}}`;
-}
 
 function literalString(value) {
 	if (typeof value == 'string') {
@@ -73,14 +45,20 @@ function assignmentString(key, value) {
   return `${key} = ${displayValue}\n`;
 }
 
+function convertMapping(mappingName, mapping) {
+	let result = "\n";
+	Object.entries(mapping).forEach(([key, value]) => {
+		result += assignmentString(key, value);
+	});
+	return `${mappingName} {${result}}`;
+}
+
 function convertOptions(options) {
 	let result = "";
 	Object.entries(options).forEach(([key, value]) => {
 		if (ALLOWED_OPTIONS_KEYS.includes(key)) {
-			if (key === 'thresholds') {
-				result += convertThresholds(value);
-			} else if (key === 'silenced') {
-				result += convertSilenced(value);
+			if (key === 'thresholds' || key === 'threshold_windows' || key === 'silenced') {
+				result += convertMapping(key, value);
 			} else {
 				result += assignmentString(key, value);
 			}

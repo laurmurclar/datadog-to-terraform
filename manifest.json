@@ -1,6 +1,6 @@
 {
     "name": "Datadog-to-Terraform Converter",
-    "version": "1.1",
+    "version": "1.2",
     "description": "Converts Datadog monitor JSON into Terraform alarm code.",
     "manifest_version": 2,
     "browser_action": {

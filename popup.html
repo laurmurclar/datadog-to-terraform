@@ -36,24 +36,24 @@
         pointer-events: none;
       }
       #outputWrapper.active {
-        opacity: 1.0;
+        opacity: 1;
         pointer-events: auto;
       }
     </style>
 
-    <div class='content'>
-      <div class='inputWrapper'>
+    <div class="content">
+      <div class="inputWrapper">
         <h1>Resource name:</h1>
-        <input id="resourceName" placeholder="Gimme the name"/>
+        <input id="resourceName" placeholder="Gimme the name" />
         <h1>Datadog JSON:</h1>
         <textarea id="datadogJson" placeholder="Gimme the JSON"></textarea>
-        <button id='convertButton'>Convert & copy result</button>
-        <span id='onClickMessage'></span>
+        <button id="convertButton">Convert & copy result</button>
+        <span id="onClickMessage"></span>
       </div>
 
-      <hr/>
+      <hr />
 
-      <div id='outputWrapper'>
+      <div id="outputWrapper">
         <h1>Terraform Code:</h1>
         <textarea id="result" placeholder="Paste your Datadog monitor JSON above to generate Terraform code..."></textarea>
       </div>

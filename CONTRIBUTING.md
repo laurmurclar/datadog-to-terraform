@@ -1,7 +1,7 @@
 Thanks for your interest in contributing! If anything in here is unclear or outdated, please update it too 😄
 
 # Development setup
-1. Clone this repo
+1. Fork this repo
 1. Open the [Chrome extension settings](chrome://extensions/)
 1. Click `Load unpacked` and select this project
 

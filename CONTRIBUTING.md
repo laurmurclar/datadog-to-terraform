@@ -13,7 +13,7 @@ You should now be able to use the extension as described in the [README](README.
 - *One pull request per feature.* If you want to do more than one thing, send multiple pull requests.
 - *Send coherent history.* Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please squash them before sending them to us.
 
-# How to release
+# How to release (Admin-only)
 Only needed for user-facing changes!
 1. Bump the version in `manifest.json` and get changes merged to master
 1. Create a new release on the Github repo, tagged with the new version (this triggers the deployment)

@@ -5,33 +5,33 @@
   <body>
     <style>
       .content {
-        margin: 10px 30px;
-        width: 300px;
+        margin: 8px 16px;
+        width: 480px;
+        height: 160px;
       }
       input, textarea {
         width: 100%;
         min-height: 30px;
         border-radius: 4px;
         border: 1px solid grey;
+        padding: 4px;
+      }
+      input, textarea, button {
+        margin-bottom: 16px;
       }
       textarea {
         height: 150px;
       }
-      .inputWrapper {
-        margin-bottom: 40px;
-      }
       button {
-        margin: 10px 0px;
         width: 100%;
         padding: 10px;
-        background-color: red;
+        background-color: #9011fe;
         color: white;
         font-size: 18px;
         border: none;
         border-radius: 5px;
       }
       #outputWrapper {
-        margin-top: 20px;
         opacity: 0.5;
         pointer-events: none;
       }
@@ -39,25 +39,23 @@
         opacity: 1;
         pointer-events: auto;
       }
+      #statusMessage {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        font-size: 12px;
+      }
     </style>
 
     <div class="content">
       <div class="inputWrapper">
-        <h1>Resource name:</h1>
-        <input id="resourceName" placeholder="Gimme the name" />
-        <h1>Datadog JSON:</h1>
-        <textarea id="datadogJson" placeholder="Gimme the JSON"></textarea>
+        <input id="resourceName" placeholder="your_resource_name" />
+        <textarea id="datadogJson" placeholder="{&#10;  &quot;name&quot;: &quot;Some lovely monitor&quot;,&#10;  &quot;type&quot;: &quot;metric alert&quot;,&#10;  &quot;query&quot;: ...&#10;}"></textarea>
         <button id="convertButton">Convert & copy result</button>
-        <span id="onClickMessage"></span>
+        <p id="statusMessage"></p>
       </div>
-
-      <hr />
 
       <div id="outputWrapper">
-        <h1>Terraform Code:</h1>
-        <textarea id="result" placeholder="Paste your Datadog monitor JSON above to generate Terraform code..."></textarea>
       </div>
-    </div>
 
     <script type="module" src="popup.js"></script>
   </body>

@@ -1,9 +1,15 @@
 Thanks for your interest in contributing! If anything in here is unclear or outdated, please update it too 😄
 
 # Development setup
-1. Fork this repo
+ First, fork this repo
+
+## Chrome
 1. Open the [Chrome extension settings](chrome://extensions/)
 1. Click `Load unpacked` and select this project
+
+## Firefox
+1. Open the [tempory extension settings](about:debugging#/runtime/this-firefox)
+1. Click `Load temporary add-on` and select the manifest.json for this project
 
 You should now be able to use the extension as described in the [README](README.md). You'll need to click the refresh button on the extension settings to reload the extension after code changes.
 
@@ -15,8 +21,10 @@ You should now be able to use the extension as described in the [README](README.
 
 # How to release (Admin-only)
 Only needed for user-facing changes!
+
 1. Bump the version in `manifest.json` and get changes merged to master
-1. Create a new release on the Github repo, tagged with the new version (this triggers the deployment)
+1. **Chrome** - create a new release on the Github repo, tagged with the new version (this triggers the deployment)
+1. **Firefox** - create a .zip (`git archive -o dtt.zip HEAD`) and upload it to the Firefox store via [the developer hub](https://addons.mozilla.org/en-US/developers/addons)
 
 ### Notes:
 - If you don't bump the version in `manifest.json`, the upload to the Chrome Web Store will fail. It will look like everything passed in CircleCI until you dig into the logs of the "Publish" step.

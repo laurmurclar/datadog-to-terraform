@@ -1,7 +1,9 @@
 # Datadog to Terraform Converter
-Converts Datadog monitor JSON into Terraform alarm code. [Install it here.](https://chrome.google.com/webstore/detail/datadog-to-terraform-conv/lafmglpipgongjmbbjngmboifpaodemk)
+Converts Datadog monitor JSON into Terraform alarm code.
 
-### How to Use
+## Installation
+[Chrome Extension](https://chrome.google.com/webstore/detail/datadog-to-terraform-conv/lafmglpipgongjmbbjngmboifpaodemk) | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/datadog-to-terraform-converter/)
+## How to Use
 1. Create your monitor (but don't save) in the Datadog UI and copy the monitor JSON.
 1. Open the extension, fill in the resource name and paste in the monitor JSON.
 1. Paste the resulting code into your terraform file and run `terraform fmt` (you can automate this with editor plugins)

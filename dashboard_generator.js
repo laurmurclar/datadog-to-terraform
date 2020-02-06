@@ -86,6 +86,8 @@ function constructWidgetDefinition(definition) {
             result += convertRequests(value);
         } else if (key === "markers"){
             result += convertMarkers(value);
+        } else if (key === "yaxis") {
+            result += convertMapping(key, value);
         } else {
             result += assignmentString(key, value);
         }

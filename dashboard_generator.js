@@ -1,4 +1,5 @@
 import {assignmentString} from "./monitor_generator.js";
+import {convertMapping} from "./monitor_generator.js";
 
 const REQUIRED_KEYS = ["title", "description", "template_variables", "layout_type", "is_read_only", "notify_list", "id"];
 const VALID_SLO_KEYS = ["view_type", "slo_id", "show_error_budget", "view_mode", "time_windows", "title", "title_size", "title_align"];
@@ -25,7 +26,7 @@ function convert(key, value) {
     if (REQUIRED_KEYS.includes(key)) {
         if (key === "id") return result;
         if (key === "template_variables") {
-            return result += convertTemplateVariables(value);
+            return result + convertTemplateVariables(value);
         }
         result += assignmentString(key, value);
     } else if (key === "widgets") {
@@ -82,7 +83,9 @@ function constructWidgetDefinition(definition) {
         } else if (key === "widgets") {
             result += convertWidgets(value);
         } else if (key === "requests") {
-            result += convertRequests(key, value);
+            result += convertRequests(value);
+        } else if (key === "markers"){
+            result += convertMarkers(value);
         } else {
             result += assignmentString(key, value);
         }
@@ -90,13 +93,21 @@ function constructWidgetDefinition(definition) {
     return result + "\n}";
 }
 
-function convertRequests(mappingName, mapping) {
+function convertRequests(requests) {
     let result = "\n";
-    mapping = mapping[0];
-    Object.entries(mapping).forEach(([key, value]) => {
-        result += assignmentString(key, value);
-    });
-    return `request {${result}}`;
+    for (let request of requests) {
+        let requestBody = "\n";
+        Object.entries(request).forEach(([key, value]) => {
+            if (key === "style") {
+                requestBody += convertMapping(key, value);
+            } else {
+                requestBody += assignmentString(key, value);
+            }
+
+        });
+        result += `request {${requestBody}}`
+    }
+    return result;
 }
 
 function convertNestedMappings(mappingName, mapping) {
@@ -108,3 +119,14 @@ function convertNestedMappings(mappingName, mapping) {
     return `${mappingName} = {${result}}`;
 }
 
+function convertMarkers(markers) {
+    let result = "\n";
+    for (let marker of markers) {
+        let markerBody = "\n";
+        Object.entries(marker).forEach(([key, value]) => {
+            markerBody += assignmentString(key, value);
+        });
+        result += `marker {${markerBody}}`
+    }
+    return result;
+}

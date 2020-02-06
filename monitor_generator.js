@@ -40,7 +40,7 @@ export function assignmentString(key, value) {
   return `${key} = ${displayValue}\n`;
 }
 
-function convertMapping(mappingName, mapping) {
+export function convertMapping(mappingName, mapping) {
   let result = "\n";
   Object.entries(mapping).forEach(([key, value]) => {
     result += assignmentString(key, value);

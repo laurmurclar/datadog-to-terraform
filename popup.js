@@ -1,14 +1,25 @@
-import { generateTerraformCode } from "./generator.js";
+import { generateTerraformCode } from "./monitor_generator.js";
+import {generateDashboardTerraformCode} from "./dashboard_generator.js";
 
 function onClick() {
   var resourceName = document.getElementById("resourceName").value;
   var datadogJson = document.getElementById("datadogJson").value;
 
   try {
-    var terraformAlarmCode = generateTerraformCode(
-      resourceName,
-      JSON.parse(datadogJson)
-    );
+      var terraformAlarmCode;
+      if (document.getElementById('monitorChoice').checked) {
+          //rate_value = document.getElementById('r1').value;
+          terraformAlarmCode = generateTerraformCode(
+              resourceName,
+              JSON.parse(datadogJson)
+          );
+      } else {
+          terraformAlarmCode = generateDashboardTerraformCode(
+              resourceName,
+              JSON.parse(datadogJson)
+          );
+      }
+
     addDomElementsForResult(terraformAlarmCode);
     copyResultToClipboard();
     updateStatusMessage("Copied to clipboard!", false);

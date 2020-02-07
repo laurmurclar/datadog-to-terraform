@@ -85,9 +85,9 @@ function constructWidgetDefinition(definition) {
         } else if (key === "widgets") {
             result += convertWidgets(value);
         } else if (key === "requests") {
-            result += convertRequests(value);
+            result += convertRequests(key, value);
         } else if (key === "markers") {
-            result += convertArrayOfObjects(value);
+            result += convertArrayOfObjects(key, value);
         } else if (key === "yaxis") {
             result += convertMapping(key, value);
         } else {
@@ -97,19 +97,19 @@ function constructWidgetDefinition(definition) {
     return result + "\n}";
 }
 
-function convertRequests(requests) {
+function convertRequests(name, requests) {
     let result = "\n";
     for (let request of requests) {
-        let requestBody = "\n";
+        result += singularize(name) + " {\n";
+
         Object.entries(request).forEach(([key, value]) => {
             if (key === "style") {
-                requestBody += convertMapping(key, value);
+                result += convertMapping(key, value);
             } else {
-                requestBody += assignmentString(key, value);
+                result += assignmentString(key, value);
             }
-
         });
-        result += `request {${requestBody}}`
+        result += "\n}";
     }
     return result;
 }
@@ -124,5 +124,5 @@ function convertNestedMappings(mappingName, mapping) {
 }
 
 function singularize(str) {
-    return str.replace(/s/i, '');
+    return str.replace(/s$/,"");
 }

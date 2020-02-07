@@ -26,7 +26,7 @@ function convert(key, value) {
     if (REQUIRED_KEYS.includes(key)) {
         if (key === "id") return result;
         if (key === "template_variables") {
-            return result + convertTemplateVariables(value);
+            return result + convertArrayOfObjects(key, value);
         }
         result += assignmentString(key, value);
     } else if (key === "widgets") {
@@ -37,12 +37,13 @@ function convert(key, value) {
     return result;
 }
 
-function convertTemplateVariables(templateVariables) {
+function convertArrayOfObjects(arrayName, jsonArray) {
     let result = "\n";
-    for (let templateVariable of templateVariables) {
-        result += "template_variable {\n";
 
-        Object.entries(templateVariable).forEach(([key, value]) => {
+    for (let obj of jsonArray) {
+        result += singularize(arrayName) + " {\n";
+
+        Object.entries(obj).forEach(([key, value]) => {
             result += assignmentString(key, value);
         });
         result += "\n}";
@@ -75,6 +76,7 @@ function constructWidgetDefinition(definition) {
         result += definition["type"] + "_definition {\n";
     }
     Object.entries(definition).forEach(([key, value]) => {
+        // Needed to exclude the SLO properties that are not accepted in the terraform code
         if (key === "type" || (definition["type"] === "slo" && !VALID_SLO_KEYS.includes(key))) {
             return;
         }
@@ -84,8 +86,8 @@ function constructWidgetDefinition(definition) {
             result += convertWidgets(value);
         } else if (key === "requests") {
             result += convertRequests(value);
-        } else if (key === "markers"){
-            result += convertMarkers(value);
+        } else if (key === "markers") {
+            result += convertArrayOfObjects(value);
         } else if (key === "yaxis") {
             result += convertMapping(key, value);
         } else {
@@ -121,14 +123,6 @@ function convertNestedMappings(mappingName, mapping) {
     return `${mappingName} = {${result}}`;
 }
 
-function convertMarkers(markers) {
-    let result = "\n";
-    for (let marker of markers) {
-        let markerBody = "\n";
-        Object.entries(marker).forEach(([key, value]) => {
-            markerBody += assignmentString(key, value);
-        });
-        result += `marker {${markerBody}}`
-    }
-    return result;
+function singularize(str) {
+    return str.replace(/s/i, '');
 }

@@ -70,6 +70,8 @@ function convert(key, value) {
     result += assignmentString(key, value);
   } else if (key === "options") {
     result += convertOptions(value);
+  } else if (key == 'id') {
+    return result;
   } else {
     throw `Conversion for "${key}" not found`;
   }

@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) 2019- Intercom, Inc. (https://www.intercom.io)
+Copyright (c) 2019- Laura Murphy-Clarkin
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

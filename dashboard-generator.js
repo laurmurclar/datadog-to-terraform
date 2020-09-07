@@ -1,5 +1,5 @@
-import { assignmentString } from "./monitor_generator.js";
-import { convertMapping } from "./monitor_generator.js";
+import { assignmentString } from "./monitor-generator.js";
+import { convertMapping } from "./monitor-generator.js";
 
 const REQUIRED_KEYS = [
   "title",

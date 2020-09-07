@@ -14,7 +14,7 @@ const ALLOWED_OPTIONS_KEYS = [
   "escalation_message",
   "thresholds",
   "silenced",
-  "threshold_windows"
+  "threshold_windows",
 ];
 
 function literalString(value) {
@@ -70,7 +70,7 @@ function convert(key, value) {
     result += assignmentString(key, value);
   } else if (key === "options") {
     result += convertOptions(value);
-  } else if (key == 'id') {
+  } else if (key == "id") {
     return result;
   } else {
     throw `Conversion for "${key}" not found`;
@@ -89,7 +89,7 @@ function monitorBody(monitorJson) {
 }
 
 export function generateTerraformCode(resourceName, monitorJson) {
-  if (!resourceName || !monitorJson || !REQUIRED_KEYS.every(key => key in monitorJson)) {
+  if (!resourceName || !monitorJson || !REQUIRED_KEYS.every((key) => key in monitorJson)) {
     throw "You're missing a required key.";
   }
   return `resource "datadog_monitor" "${resourceName}" {${monitorBody(monitorJson)}}`;

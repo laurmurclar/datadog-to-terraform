@@ -1,31 +1,33 @@
 <html>
-<head>
+  <head>
     <title>Datadog-to-terraform Popup</title>
-</head>
-<body>
-<style>
-    .content {
+  </head>
+  <body>
+    <style>
+      .content {
         margin: 8px 16px;
         width: 480px;
-    }
+      }
 
-    input, textarea {
+      input,
+      textarea {
         width: 100%;
         min-height: 30px;
         border-radius: 4px;
         border: 1px solid grey;
         padding: 4px;
-    }
+      }
 
-    input, textarea {
+      input,
+      textarea {
         margin-bottom: 16px;
-    }
+      }
 
-    textarea {
+      textarea {
         height: 150px;
-    }
+      }
 
-    button {
+      button {
         width: 100%;
         padding: 10px;
         background-color: #9011fe;
@@ -33,52 +35,58 @@
         font-size: 18px;
         border: none;
         border-radius: 5px;
-    }
+      }
 
-    form input {
+      form input {
         width: auto;
-    }
+      }
 
-    #outputWrapper {
+      #outputWrapper {
         opacity: 0.5;
         pointer-events: none;
-    }
+      }
 
-    #outputWrapper.active {
+      #outputWrapper.active {
         opacity: 1;
         pointer-events: auto;
-    }
+      }
 
-    #statusMessage {
+      #statusMessage {
         margin-top: 8px;
         margin-bottom: 8px;
         font-size: 12px;
-    }
-</style>
+      }
+    </style>
 
-<div class="content">
-    <div class="inputWrapper">
-        <input id="resourceName" placeholder="your_resource_name"/>
+    <div class="content">
+      <div class="inputWrapper">
+        <input id="resourceName" placeholder="your_resource_name" />
         <form>
-            <div>
-                <input type="radio" id="monitorChoice"
-                       name="resourceType" value="monitor" checked>
-                <label for="monitorChoice">Monitor</label>
+          <div>
+            <input
+              type="radio"
+              id="monitorChoice"
+              name="resourceType"
+              value="monitor"
+              checked
+            />
+            <label for="monitorChoice">Monitor</label>
 
-                <input type="radio" id="dashboardChoice"
-                       name="resourceType" value="dashboard">
-                <label for="dashboardChoice">Dashboard</label>
-            </div>
+            <input type="radio" id="dashboardChoice" name="resourceType" value="dashboard" />
+            <label for="dashboardChoice">Dashboard</label>
+          </div>
         </form>
-        <textarea id="datadogJson"
-                  placeholder="{&#10;  &quot;name&quot;: &quot;Some lovely monitor&quot;,&#10;  &quot;type&quot;: &quot;metric alert&quot;,&#10;  &quot;query&quot;: ...&#10;}"></textarea>
+        <textarea
+          id="datadogJson"
+          placeholder='{&#10;  "name": "Some lovely monitor",&#10;  "type": "metric alert",&#10;  "query": ...&#10;}'
+        ></textarea>
         <button id="convertButton">Convert & copy result</button>
         <p id="statusMessage"></p>
+      </div>
+
+      <div id="outputWrapper"></div>
     </div>
 
-    <div id="outputWrapper"></div>
-</div>
-
-<script type="module" src="popup.js"></script>
-</body>
+    <script type="module" src="popup.js"></script>
+  </body>
 </html>

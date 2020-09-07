@@ -14,7 +14,7 @@ const ALLOWED_OPTIONS_KEYS = [
   "escalation_message",
   "thresholds",
   "silenced",
-  "threshold_windows"
+  "threshold_windows",
 ];
 
 function literalString(value) {
@@ -87,7 +87,7 @@ function monitorBody(monitorJson) {
 }
 
 export function generateTerraformCode(resourceName, monitorJson) {
-  if (!resourceName || !monitorJson || !REQUIRED_KEYS.every(key => key in monitorJson)) {
+  if (!resourceName || !monitorJson || !REQUIRED_KEYS.every((key) => key in monitorJson)) {
     throw "You're missing a required key.";
   }
   return `resource "datadog_monitor" "${resourceName}" {${monitorBody(monitorJson)}}`;

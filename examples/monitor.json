@@ -1,0 +1,23 @@
+{
+  "id": 255687,
+  "name": "CPU load is high",
+  "type": "metric alert",
+  "query": "avg(last_5m):avg:system.cpu.system{*} > 50",
+  "message": "{{#is_alert}}\n Possible explanations are x, y or z. Check blah, blah blah.\n{{/is_alert}} \n\n{{#is_recovery}}\nCPU is at an acceptable level again\n{{/is_recovery}}  @all",
+  "tags": ["team-cpu"],
+  "options": {
+    "notify_audit": false,
+    "locked": true,
+    "timeout_h": 0,
+    "new_host_delay": 300,
+    "require_full_window": false,
+    "notify_no_data": false,
+    "renotify_interval": "0",
+    "escalation_message": "",
+    "no_data_timeframe": null,
+    "include_tags": true,
+    "thresholds": {
+      "critical": 50
+    }
+  }
+}

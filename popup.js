@@ -6,18 +6,15 @@ function onClick() {
   var datadogJson = document.getElementById("datadogJson").value;
 
   try {
-    var terraformAlarmCode;
-    if (document.getElementById("monitorChoice").checked) {
-      //rate_value = document.getElementById('r1').value;
-      terraformAlarmCode = generateTerraformCode(resourceName, JSON.parse(datadogJson));
+    var terraformCode;
+    let parsedJson = JSON.parse(datadogJson);
+    if (parsedJson.hasOwnProperty("name")) {
+      terraformCode = generateTerraformCode(resourceName, parsedJson);
     } else {
-      terraformAlarmCode = generateDashboardTerraformCode(
-        resourceName,
-        JSON.parse(datadogJson)
-      );
+      terraformCode = generateDashboardTerraformCode(resourceName, parsedJson);
     }
 
-    addDomElementsForResult(terraformAlarmCode);
+    addDomElementsForResult(terraformCode);
     copyResultToClipboard();
     updateStatusMessage("Copied to clipboard!", false);
   } catch (e) {

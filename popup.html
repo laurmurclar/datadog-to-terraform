@@ -71,20 +71,44 @@
               checked
             />
             <label for="monitorChoice">Monitor</label>
-
-            <input type="radio" id="dashboardChoice" name="resourceType" value="dashboard" />
-            <label for="dashboardChoice">Dashboard</label>
           </div>
         </form>
-        <textarea
-          id="datadogJson"
-          placeholder='{&#10;  "name": "Some lovely monitor",&#10;  "type": "metric alert",&#10;  "query": ...&#10;}'
-        ></textarea>
-        <button id="convertButton">Convert & copy result</button>
-        <p id="statusMessage"></p>
-      </div>
+        <div class="content">
+          <div class="inputWrapper">
+            <input id="resourceName" placeholder="your_resource_name" />
+            <form>
+              <div>
+                <input
+                  type="radio"
+                  id="monitorChoice"
+                  name="resourceType"
+                  value="monitor"
+                  checked
+                />
+                <label for="monitorChoice">Monitor</label>
 
-      <div id="outputWrapper"></div>
+                <input
+                  type="radio"
+                  id="dashboardChoice"
+                  name="resourceType"
+                  value="dashboard"
+                />
+                <label for="dashboardChoice">Dashboard</label>
+              </div>
+            </form>
+            <textarea
+              id="datadogJson"
+              placeholder='{&#10;  "name": "Some lovely monitor",&#10;  "type": "metric alert",&#10;  "query": ...&#10;}'
+            ></textarea>
+            <button id="convertButton">Convert & copy result</button>
+            <p id="statusMessage"></p>
+          </div>
+
+          <div id="outputWrapper"></div>
+        </div>
+
+        <div id="outputWrapper"></div>
+      </div>
     </div>
 
     <script type="module" src="popup.js"></script>

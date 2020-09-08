@@ -45,7 +45,7 @@ export function convertMapping(mappingName, mapping) {
   Object.entries(mapping).forEach(([key, value]) => {
     result += assignmentString(key, value);
   });
-  return `${mappingName} {${result}}`;
+  return `${mappingName} {${result}}\n`;
 }
 
 function convertOptions(options) {
@@ -70,6 +70,8 @@ function convert(key, value) {
     result += assignmentString(key, value);
   } else if (key === "options") {
     result += convertOptions(value);
+  } else if (key == "id") {
+    return result;
   } else {
     throw `Conversion for "${key}" not found`;
   }

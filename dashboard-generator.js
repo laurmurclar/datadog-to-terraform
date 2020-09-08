@@ -55,7 +55,7 @@ function convert(key, value) {
 }
 
 function convertArrayOfObjects(arrayName, jsonArray) {
-  let result = "\n";
+  let result = "";
 
   for (let obj of jsonArray) {
     result += singularize(arrayName) + " {\n";
@@ -63,7 +63,7 @@ function convertArrayOfObjects(arrayName, jsonArray) {
     Object.entries(obj).forEach(([key, value]) => {
       result += assignmentString(key, value);
     });
-    result += "\n}";
+    result += "}\n";
   }
   return result;
 }
@@ -80,13 +80,13 @@ function convertWidgets(widgets) {
         result += convertNestedMappings(key, value);
       }
     });
-    result += "\n}";
+    result += "}\n";
   }
   return result;
 }
 
 function constructWidgetDefinition(definition) {
-  let result = "\n";
+  let result = "";
   if (definition["type"] === "slo") {
     result += "service_level_objective_definition {\n";
   } else {
@@ -111,11 +111,11 @@ function constructWidgetDefinition(definition) {
       result += assignmentString(key, value);
     }
   });
-  return result + "\n}";
+  return result + "}\n";
 }
 
 function convertRequests(name, requests) {
-  let result = "\n";
+  let result = "";
   for (let request of requests) {
     result += singularize(name) + " {\n";
 
@@ -126,18 +126,18 @@ function convertRequests(name, requests) {
         result += assignmentString(key, value);
       }
     });
-    result += "\n}";
+    result += "}\n";
   }
   return result;
 }
 
 function convertNestedMappings(mappingName, mapping) {
-  let result = "\n";
+  let result = "";
 
   Object.entries(mapping).forEach(([key, value]) => {
     result += assignmentString(key, value);
   });
-  return `${mappingName} = {${result}}`;
+  return `${mappingName} = {\n${result}}\n`;
 }
 
 function singularize(str) {

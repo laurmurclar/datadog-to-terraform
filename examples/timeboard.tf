@@ -29,6 +29,21 @@ resource "datadog_dashboard" "hi" {
       request {
         q          = "avg:datadog.agent.running{*}"
         aggregator = "avg"
+        conditional_formats {
+          comparator = "<="
+          value      = 1
+          palette    = "white_on_green"
+        }
+        conditional_formats {
+          comparator = ">"
+          value      = 1
+          palette    = "white_on_yellow"
+        }
+        conditional_formats {
+          comparator = ">="
+          value      = 3
+          palette    = "white_on_red"
+        }
       }
       title     = "Avg of datadog.agent.running over *"
       autoscale = true

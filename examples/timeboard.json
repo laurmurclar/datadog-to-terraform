@@ -10,7 +10,11 @@
           {
             "q": "avg:system.cpu.user{*}",
             "display_type": "line",
-            "style": { "palette": "dog_classic", "line_type": "solid", "line_width": "normal" }
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            }
           }
         ],
         "yaxis": {
@@ -29,7 +33,29 @@
       "id": 4204614699449750,
       "definition": {
         "type": "query_value",
-        "requests": [{ "q": "avg:datadog.agent.running{*}", "aggregator": "avg" }],
+        "requests": [
+          {
+            "q": "avg:datadog.agent.running{*}",
+            "aggregator": "avg",
+            "conditional_formats": [
+              {
+                "comparator": "<=",
+                "value": 1,
+                "palette": "white_on_green"
+              },
+              {
+                "comparator": ">",
+                "value": 1,
+                "palette": "white_on_yellow"
+              },
+              {
+                "comparator": ">=",
+                "value": 3,
+                "palette": "white_on_red"
+              }
+            ]
+          }
+        ],
         "title": "Avg of datadog.agent.running over *",
         "autoscale": true,
         "precision": 2

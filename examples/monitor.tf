@@ -5,7 +5,7 @@ resource "datadog_monitor" "hi" {
   message             = <<EOF
 {{#is_alert}}
  Possible explanations are x, y or z. Check blah, blah blah.
-{{/is_alert}} 
+{{/is_alert}}
 
 {{#is_recovery}}
 CPU is at an acceptable level again

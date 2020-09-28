@@ -122,7 +122,10 @@ function convertRequests(name, requests) {
     Object.entries(request).forEach(([key, value]) => {
       if (key === "style") {
         result += convertMapping(key, value);
-      } else {
+      } else if (key === "conditional_formats") {
+        result += convertConditionalFormats(key, value);
+      }
+      else {
         result += assignmentString(key, value);
       }
     });
@@ -142,4 +145,17 @@ function convertNestedMappings(mappingName, mapping) {
 
 function singularize(str) {
   return str.replace(/s$/, "");
+}
+
+function convertConditionalFormats(name, conditionalFormats) {
+  let result = "";
+  for (let conditionalFormat of conditionalFormats) {
+    result += name + " {\n";
+
+    Object.entries(conditionalFormat).forEach(([key, value]) => {
+      result += assignmentString(key, value);
+    });
+    result += "}\n";
+  }
+  return result;
 }

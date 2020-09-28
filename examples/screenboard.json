@@ -10,7 +10,11 @@
           {
             "q": "avg:system.cpu.user{*}",
             "display_type": "line",
-            "style": { "palette": "dog_classic", "line_type": "solid", "line_width": "normal" }
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            }
           }
         ],
         "yaxis": {
@@ -26,26 +30,65 @@
         "time": {},
         "show_legend": false
       },
-      "layout": { "x": 17, "y": 15, "width": 47, "height": 15 }
+      "layout": {
+        "x": 17,
+        "y": 15,
+        "width": 47,
+        "height": 15
+      }
     },
     {
       "id": 6253560944158039,
       "definition": {
         "type": "heatmap",
-        "requests": [{ "q": "avg:system.cpu.user{*}", "style": { "palette": "dog_classic" } }],
+        "requests": [
+          {
+            "q": "avg:system.cpu.user{*}",
+            "style": {
+              "palette": "dog_classic"
+            }
+          }
+        ],
         "title": "Avg of system.cpu.user over *",
         "title_size": "16",
         "title_align": "left",
         "show_legend": false,
         "time": {}
       },
-      "layout": { "x": 78, "y": 7, "width": 47, "height": 15 }
+      "layout": {
+        "x": 78,
+        "y": 7,
+        "width": 47,
+        "height": 15
+      }
     },
     {
       "id": 6015349083435453,
       "definition": {
         "type": "query_value",
-        "requests": [{ "q": "avg:datadog.agent.running{*}", "aggregator": "avg" }],
+        "requests": [
+          {
+            "q": "avg:datadog.agent.running{*}",
+            "aggregator": "avg",
+            "conditional_formats": [
+              {
+                "comparator": "<=",
+                "value": 1,
+                "palette": "white_on_green"
+              },
+              {
+                "comparator": ">",
+                "value": 1,
+                "palette": "white_on_yellow"
+              },
+              {
+                "comparator": ">=",
+                "value": 3,
+                "palette": "white_on_red"
+              }
+            ]
+          }
+        ],
         "title": "Avg of datadog.agent.running over *",
         "title_size": "16",
         "title_align": "left",
@@ -53,7 +96,12 @@
         "autoscale": true,
         "precision": 2
       },
-      "layout": { "x": 8, "y": 35, "width": 47, "height": 15 }
+      "layout": {
+        "x": 8,
+        "y": 35,
+        "width": 47,
+        "height": 15
+      }
     }
   ],
   "template_variables": [],

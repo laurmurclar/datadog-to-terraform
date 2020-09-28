@@ -1,4 +1,4 @@
-resource "datadog_dashboard" "hi" {
+resource "datadog_dashboard" "sb" {
   title       = "Laura's Screenboard 7 Sep 2020 13:18"
   description = ""
   widget {

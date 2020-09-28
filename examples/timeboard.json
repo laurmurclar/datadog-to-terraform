@@ -10,11 +10,7 @@
           {
             "q": "avg:system.cpu.user{*}",
             "display_type": "line",
-            "style": {
-              "palette": "dog_classic",
-              "line_type": "solid",
-              "line_width": "normal"
-            }
+            "style": { "palette": "dog_classic", "line_type": "solid", "line_width": "normal" }
           }
         ],
         "yaxis": {
@@ -38,33 +34,36 @@
             "q": "avg:datadog.agent.running{*}",
             "aggregator": "avg",
             "conditional_formats": [
-              {
-                "comparator": "<=",
-                "value": 1,
-                "palette": "white_on_green"
-              },
-              {
-                "comparator": ">",
-                "value": 1,
-                "palette": "white_on_yellow"
-              },
-              {
-                "comparator": ">=",
-                "value": 3,
-                "palette": "white_on_red"
-              }
+              { "comparator": "<", "value": 1, "palette": "white_on_red" },
+              { "comparator": ">=", "value": 1, "palette": "white_on_green" }
             ]
           }
         ],
         "title": "Avg of datadog.agent.running over *",
+        "time": {},
         "autoscale": true,
         "precision": 2
       }
     }
   ],
-  "template_variables": [],
+  "template_variables": [
+    { "name": "major", "default": "*", "prefix": "agent_version_major" },
+    { "name": "minor", "default": "*", "prefix": "agent_version_minor" },
+    { "name": "patch", "default": "*", "prefix": "agent_version_patch" }
+  ],
   "layout_type": "ordered",
   "is_read_only": false,
   "notify_list": [],
+  "template_variable_presets": [
+    { "name": ">= 7", "template_variables": [{ "name": "major", "value": "7" }] },
+    {
+      "name": "Latest",
+      "template_variables": [
+        { "name": "major", "value": "7" },
+        { "name": "minor", "value": "21" },
+        { "name": "patch", "value": "1" }
+      ]
+    }
+  ],
   "id": "hww-tah-72j"
 }

@@ -1,4 +1,4 @@
-resource "datadog_dashboard" "hi" {
+resource "datadog_dashboard" "tb" {
   title       = "Laura's Timeboard 21 Aug 2020 16:30"
   description = ""
   widget {
@@ -30,27 +30,61 @@ resource "datadog_dashboard" "hi" {
         q          = "avg:datadog.agent.running{*}"
         aggregator = "avg"
         conditional_formats {
-          comparator = "<="
+          comparator = "<"
           value      = 1
-          palette    = "white_on_green"
-        }
-        conditional_formats {
-          comparator = ">"
-          value      = 1
-          palette    = "white_on_yellow"
+          palette    = "white_on_red"
         }
         conditional_formats {
           comparator = ">="
-          value      = 3
-          palette    = "white_on_red"
+          value      = 1
+          palette    = "white_on_green"
         }
       }
-      title     = "Avg of datadog.agent.running over *"
+      title = "Avg of datadog.agent.running over *"
+      time = {
+      }
       autoscale = true
       precision = 2
     }
   }
+  template_variable {
+    name    = "major"
+    default = "*"
+    prefix  = "agent_version_major"
+  }
+  template_variable {
+    name    = "minor"
+    default = "*"
+    prefix  = "agent_version_minor"
+  }
+  template_variable {
+    name    = "patch"
+    default = "*"
+    prefix  = "agent_version_patch"
+  }
   layout_type  = "ordered"
   is_read_only = false
   notify_list  = []
+  template_variable_preset {
+    name = ">= 7"
+    template_variable {
+      name  = "major"
+      value = "7"
+    }
+  }
+  template_variable_preset {
+    name = "Latest"
+    template_variable {
+      name  = "major"
+      value = "7"
+    }
+    template_variable {
+      name  = "minor"
+      value = "21"
+    }
+    template_variable {
+      name  = "patch"
+      value = "1"
+    }
+  }
 }

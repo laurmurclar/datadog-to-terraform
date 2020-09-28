@@ -48,6 +48,8 @@ function convert(key, value) {
     result += assignmentString(key, value);
   } else if (key === "widgets") {
     result += convertWidgets(value);
+  } else if (key === "template_variable_presets") {
+    result += convertTemplateVariablePresets(value);
   } else {
     throw `Conversion for "${key}" not found`;
   }
@@ -124,8 +126,7 @@ function convertRequests(name, requests) {
         result += convertMapping(key, value);
       } else if (key === "conditional_formats") {
         result += convertConditionalFormats(key, value);
-      }
-      else {
+      } else {
         result += assignmentString(key, value);
       }
     });
@@ -154,6 +155,23 @@ function convertConditionalFormats(name, conditionalFormats) {
 
     Object.entries(conditionalFormat).forEach(([key, value]) => {
       result += assignmentString(key, value);
+    });
+    result += "}\n";
+  }
+  return result;
+}
+
+function convertTemplateVariablePresets(presets) {
+  let result = "";
+  for (let preset of presets) {
+    result += "template_variable_preset {\n";
+
+    Object.entries(preset).forEach(([key, value]) => {
+      if (key == "template_variables") {
+        result += convertArrayOfObjects(key, value);
+      } else {
+        result += assignmentString(key, value);
+      }
     });
     result += "}\n";
   }

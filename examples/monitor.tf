@@ -21,7 +21,7 @@ EOF
   renotify_interval   = "0"
   escalation_message  = ""
   include_tags        = true
-  thresholds {
+  thresholds = {
     critical = 50
   }
 }

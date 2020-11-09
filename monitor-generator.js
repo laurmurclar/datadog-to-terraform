@@ -13,9 +13,10 @@ const ALLOWED_OPTIONS_KEYS = [
   "locked",
   "escalation_message",
   "thresholds",
-  "silenced",
   "threshold_windows",
 ];
+
+const DEPRECATED_OPTIONS_KEYS = ["silenced"];
 
 function literalString(value) {
   if (typeof value == "string") {
@@ -45,19 +46,19 @@ export function convertMapping(mappingName, mapping) {
   Object.entries(mapping).forEach(([key, value]) => {
     result += assignmentString(key, value);
   });
-  return `${mappingName} {${result}}\n`;
+  return `${mappingName} = {${result}}\n`;
 }
 
 function convertOptions(options) {
   let result = "";
   Object.entries(options).forEach(([key, value]) => {
     if (ALLOWED_OPTIONS_KEYS.includes(key)) {
-      if (key === "thresholds" || key === "threshold_windows" || key === "silenced") {
+      if (key === "thresholds" || key === "threshold_windows") {
         result += convertMapping(key, value);
       } else {
         result += assignmentString(key, value);
       }
-    } else {
+    } else if (!DEPRECATED_OPTIONS_KEYS.includes(key)) {
       throw `Conversion for "${key}" not found`;
     }
   });

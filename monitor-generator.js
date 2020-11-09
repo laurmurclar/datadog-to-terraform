@@ -19,7 +19,7 @@ const ALLOWED_OPTIONS_KEYS = [
 const DEPRECATED_OPTIONS_KEYS = ["silenced"];
 
 function literalString(value) {
-  if (typeof value == "string") {
+  if (typeof value === "string") {
     if (value.includes("\n")) {
       return `<<EOF\n${value}\nEOF`;
     }
@@ -28,7 +28,7 @@ function literalString(value) {
     let result = "[";
     value.forEach((elem, index) => {
       result += literalString(elem);
-      if (index != value.length - 1) result += ",";
+      if (index !== value.length - 1) result += ",";
     });
     return result + "]";
   }
@@ -71,7 +71,7 @@ function convert(key, value) {
     result += assignmentString(key, value);
   } else if (key === "options") {
     result += convertOptions(value);
-  } else if (key == "id") {
+  } else if (key === "id") {
     return result;
   } else {
     throw `Conversion for "${key}" not found`;

@@ -13,12 +13,13 @@ const ALLOWED_OPTIONS_KEYS = [
   "locked",
   "escalation_message",
   "thresholds",
-  "silenced",
   "threshold_windows",
 ];
 
+const DEPRECATED_OPTIONS_KEYS = ["silenced"];
+
 function literalString(value) {
-  if (typeof value == "string") {
+  if (typeof value === "string") {
     if (value.includes("\n")) {
       return `<<EOF\n${value}\nEOF`;
     }
@@ -27,7 +28,7 @@ function literalString(value) {
     let result = "[";
     value.forEach((elem, index) => {
       result += literalString(elem);
-      if (index != value.length - 1) result += ",";
+      if (index !== value.length - 1) result += ",";
     });
     return result + "]";
   }
@@ -45,19 +46,19 @@ export function convertMapping(mappingName, mapping) {
   Object.entries(mapping).forEach(([key, value]) => {
     result += assignmentString(key, value);
   });
-  return `${mappingName} {${result}}\n`;
+  return `${mappingName} = {${result}}\n`;
 }
 
 function convertOptions(options) {
   let result = "";
   Object.entries(options).forEach(([key, value]) => {
     if (ALLOWED_OPTIONS_KEYS.includes(key)) {
-      if (key === "thresholds" || key === "threshold_windows" || key === "silenced") {
+      if (key === "thresholds" || key === "threshold_windows") {
         result += convertMapping(key, value);
       } else {
         result += assignmentString(key, value);
       }
-    } else {
+    } else if (!DEPRECATED_OPTIONS_KEYS.includes(key)) {
       throw `Conversion for "${key}" not found`;
     }
   });
@@ -70,7 +71,7 @@ function convert(key, value) {
     result += assignmentString(key, value);
   } else if (key === "options") {
     result += convertOptions(value);
-  } else if (key == "id") {
+  } else if (key === "id") {
     return result;
   } else {
     throw `Conversion for "${key}" not found`;

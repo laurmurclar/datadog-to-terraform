@@ -126,9 +126,24 @@ function convertRequests(name, requests) {
         result += convertMapping(key, value);
       } else if (key === "conditional_formats") {
         result += convertConditionalFormats(key, value);
+      } else if (key === "metadata") {
+        result += convertRequestsMetadata(key, value);
       } else {
         result += assignmentString(key, value);
       }
+    });
+    result += "}\n";
+  }
+  return result;
+}
+
+function convertRequestsMetadata(name, metadataArray) {
+  let result = "";
+  for (let metadata of metadataArray) {
+    result += name + " {\n";
+
+    Object.entries(metadata).forEach(([key, value]) => {
+      result += assignmentString(key, value);
     });
     result += "}\n";
   }

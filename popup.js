@@ -1,11 +1,14 @@
 import { generateTerraformCode } from "./monitor-generator.js";
-import { generateDashboardTerraformCode } from "./dashboard-generator.js";
+import { generateDashboardTerraformCode } from "./dashboard-converter.js";
 
 function onClick() {
   var resourceName = document.getElementById("resourceName").value;
   var datadogJson = document.getElementById("datadogJson").value;
 
   try {
+    if (!resourceName) throw "No resource name given";
+    if (!datadogJson) throw "No Datadog JSON given";
+
     var terraformCode;
     let parsedJson = JSON.parse(datadogJson);
     if (parsedJson.hasOwnProperty("name")) {

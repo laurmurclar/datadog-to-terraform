@@ -1,4 +1,4 @@
-import { generateTerraformCode } from "./monitor-generator";
+import { generateTerraformCode } from "./monitor-converter";
 import monitorJSON from "./examples/monitor.json";
 
 it("converts correctly", () => {

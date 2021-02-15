@@ -1,0 +1,62 @@
+{
+  "template_variables": [
+    { "name": "major", "default": "*", "prefix": "agent_version_major" },
+    { "name": "minor", "default": "*", "prefix": "agent_version_minor" },
+    { "name": "patch", "default": "*", "prefix": "agent_version_patch" }
+  ],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "template_variable_presets": [
+    { "name": ">= 7", "template_variables": [{ "name": "major", "value": "7" }] },
+    {
+      "name": "Latest",
+      "template_variables": [
+        { "name": "major", "value": "7" },
+        { "name": "minor", "value": "21" },
+        { "name": "patch", "value": "1" }
+      ]
+    }
+  ],
+  "id": "hww-tah-72j",
+  "widgets": [
+    {
+      "id": 6396751932460267,
+      "definition": {
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:system.cpu.user{*}",
+            "display_type": "line",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            }
+          }
+        ],
+        "yaxis": {
+          "label": "",
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto",
+          "include_zero": true
+        },
+        "title": "Avg of system.cpu.user over *",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {},
+        "show_legend": false
+      },
+      "layout": {
+        "x": 17,
+        "y": 15,
+        "width": 47,
+        "height": 15
+      }
+    },
+    {
+      "id": 2
+    }
+  ]
+}

@@ -36,3 +36,8 @@ export function blockList(array, blockName, contentConverter) {
   });
   return result;
 }
+
+export function convertFromDefinition(definitionSet, k, v) {
+  if (typeof definitionSet[k] !== "function") throw `Can't convert key '${k}'`;
+  return definitionSet[k](v);
+}

@@ -2,78 +2,108 @@
 
 exports[`converts 1`] = `
 "resource \\"datadog_dashboard\\" \\"sb_1\\" {
-
-template_variable {
-name = \\"major\\"
-default = \\"*\\"
-prefix = \\"agent_version_major\\"
-}
-template_variable {
-name = \\"minor\\"
-default = \\"*\\"
-prefix = \\"agent_version_minor\\"
-}
-template_variable {
-name = \\"patch\\"
-default = \\"*\\"
-prefix = \\"agent_version_patch\\"
-}
-
-layout_type = \\"ordered\\"
-is_read_only = false
-notify_list = []
-
-template_variable_preset {
-name = \\">= 7\\"
-
-template_variable {
-name = \\"major\\"
-value = \\"7\\"
-}
-
-}
-template_variable_preset {
-name = \\"Latest\\"
-
-template_variable {
-name = \\"major\\"
-value = \\"7\\"
-}
-template_variable {
-name = \\"minor\\"
-value = \\"21\\"
-}
-template_variable {
-name = \\"patch\\"
-value = \\"1\\"
-}
-
-}
-
-id = \\"hww-tah-72j\\"
+title = \\"Laura's Screenboard 7 Sep 2020 13:18\\"
+description = \\"\\"
 
 widget {
-id = 6396751932460267
-timeseries_definition {
-type = \\"timeseries\\"
-requests = [[object Object]]
-yaxis = [object Object]
-title = \\"Avg of system.cpu.user over *\\"
-title_size = \\"16\\"
-title_align = \\"left\\"
-time = [object Object]
-show_legend = false
-}
 widget_layout {
 x = 17
 y = 15
 width = 47
 height = 15
 }
-}
-widget {
-id = 2
+timeseries_definition {
+
+title = \\"\\"
+title_size = \\"16\\"
+title_align = \\"left\\"
+show_legend = false
+yaxis {
+scale = \\"linear\\"
+label = \\"\\"
+include_zero = true
+min = \\"auto\\"
+max = \\"auto\\"
 }
 
+marker {
+label = \\" y = 5 \\"
+value = \\"y = 5\\"
+display_type = \\"error dashed\\"
+}
+marker {
+label = \\" y = 10 \\"
+value = \\"y = 10\\"
+display_type = \\"error dashed\\"
+}
+
+}
+
+}
+widget {
+widget_layout {
+x = 78
+y = 7
+width = 47
+height = 15
+}
+heatmap_definition {
+
+title = \\"Avg of system.cpu.user over *\\"
+title_size = \\"16\\"
+title_align = \\"left\\"
+show_legend = false
+}
+
+}
+widget {
+widget_layout {
+x = 8
+y = 35
+width = 47
+height = 15
+}
+query_value_definition {
+
+title = \\"Avg of datadog.agent.running over *\\"
+title_size = \\"16\\"
+title_align = \\"left\\"
+autoscale = true
+precision = 2
+}
+
+}
+widget {
+widget_layout {
+x = 3
+y = -1
+width = 47
+height = 15
+}
+timeseries_definition {
+
+title = \\"CPU for past day\\"
+title_size = \\"16\\"
+title_align = \\"left\\"
+show_legend = false
+live_span = \\"1d\\"
+yaxis {
+scale = \\"linear\\"
+label = \\"\\"
+include_zero = true
+min = \\"auto\\"
+max = \\"auto\\"
+}
+
+
+}
+
+}
+
+
+
+layout_type = \\"free\\"
+is_read_only = false
+notify_list = []
 }"
 `;

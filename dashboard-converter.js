@@ -1,4 +1,4 @@
-import { assignmentString, blockList, block } from "./utils.js";
+import { assignmentString, block, blockList, convertFromDefinition } from "./utils.js";
 
 const DASHBOARD = {
   layout_type: (v) => assignmentString("layout_type", v),
@@ -10,7 +10,9 @@ const DASHBOARD = {
   notify_list: (v) => assignmentString("notify_list", v),
   template_variables: (v) => blockList(v, "template_variable", assignmentString),
   template_variable_presets: (v) =>
-    blockList(v, "template_variable_preset", (k1, v1) => TEMPLATE_VARIABLE_PRESET[k1](v1)),
+    blockList(v, "template_variable_preset", (k1, v1) =>
+      convertFromDefinition(TEMPLATE_VARIABLE_PRESET, k1, v1)
+    ),
   url: (v) => assignmentString("url", v),
 };
 
@@ -35,7 +37,7 @@ const WIDGET_DEFINTION = {
   text_align: (v) => assignmentString("text_align", v),
   unit: (v) => assignmentString("unit", v),
   custom_links: (v) => blockList(v, "custom_link", assignmentString),
-  requests: (v) => blockList(v, "request", (k1, v1) => REQUEST[k1](v1)),
+  requests: (v) => blockList(v, "request", (k1, v1) => convertFromDefinition(REQUEST, k1, v1)),
   check: (v) => assignmentString("check", v),
   grouping: (v) => assignmentString("grouping", v),
   group: (v) => assignmentString("group", v),
@@ -146,13 +148,13 @@ function convertSort(v) {
 }
 
 function convertWidgets(value) {
-  return blockList(value, "widget", (k, v) => WIDGET[k](v));
+  return blockList(value, "widget", (k1, v1) => convertFromDefinition(WIDGET, k1, v1));
 }
 
 function widgetDefintion(contents) {
   let result = "";
   Object.entries(contents).forEach(([k, v]) => {
-    result += WIDGET_DEFINTION[k](v);
+    result += convertFromDefinition(WIDGET_DEFINTION, k, v);
   });
   let definitionType = contents.type === "slo" ? "service_level_objective" : contents.type;
   return `\n${definitionType}_definition {${result}\n}`;
@@ -161,7 +163,7 @@ function widgetDefintion(contents) {
 export function generateDashboardTerraformCode(resourceName, dashboardData) {
   let result = "";
   Object.entries(dashboardData).forEach(([k, v]) => {
-    result += DASHBOARD[k](v);
+    result += convertFromDefinition(DASHBOARD, k, v);
   });
   return `resource "datadog_dashboard" "${resourceName}" {${result}\n}`;
 }

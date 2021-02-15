@@ -21,10 +21,18 @@ export function assignmentString(key, value) {
   return `\n${key} = ${displayValue}`;
 }
 
-export function convertLeafBlock(name, contents) {
+export function block(name, contents, converter) {
   let result = "";
   Object.entries(contents).forEach(([key, value]) => {
-    result += assignmentString(key, value);
+    result += converter(key, value);
   });
   return `\n${name} {${result}\n}`;
+}
+
+export function blockList(array, blockName, contentConverter) {
+  let result = "";
+  array.forEach((elem) => {
+    result += block(blockName, elem, contentConverter);
+  });
+  return result;
 }

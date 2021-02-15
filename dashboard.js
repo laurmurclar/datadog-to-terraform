@@ -1,4 +1,4 @@
-import { assignmentString, convertLeafBlock } from "./utils";
+import { assignmentString, blockList, block } from "./utils.js";
 
 const DASHBOARD = {
   layout_type: (v) => assignmentString("layout_type", v),
@@ -8,23 +8,21 @@ const DASHBOARD = {
   id: (_) => "",
   is_read_only: (v) => assignmentString("is_read_only", v),
   notify_list: (v) => assignmentString("notify_list", v),
-  template_variables: (v) => mapArrayToBlocks(v, "template_variable", assignmentString),
+  template_variables: (v) => blockList(v, "template_variable", assignmentString),
   template_variable_presets: (v) =>
-    mapArrayToBlocks(v, "template_variable_preset", (k1, v1) =>
-      TEMPLATE_VARIABLE_PRESET[k1](v1)
-    ),
+    blockList(v, "template_variable_preset", (k1, v1) => TEMPLATE_VARIABLE_PRESET[k1](v1)),
   url: (v) => assignmentString("url", v),
 };
 
 const WIDGET = {
   id: (_) => "",
   definition: (v) => widgetDefintion(v),
-  layout: (v) => convertLeafBlock("widget_layout", v),
+  layout: (v) => block("widget_layout", v, assignmentString),
 };
 
 const TEMPLATE_VARIABLE_PRESET = {
   name: (v) => assignmentString("name", v),
-  template_variables: (v) => mapArrayToBlocks(v, "template_variable", assignmentString),
+  template_variables: (v) => blockList(v, "template_variable", assignmentString),
 };
 
 const WIDGET_DEFINTION = {
@@ -36,8 +34,8 @@ const WIDGET_DEFINTION = {
   precision: (v) => assignmentString("precision", v),
   text_align: (v) => assignmentString("text_align", v),
   unit: (v) => assignmentString("unit", v),
-  custom_links: (v) => mapArrayToBlocks(v, "custom_link", assignmentString),
-  requests: (_) => "", // TODO
+  custom_links: (v) => blockList(v, "custom_link", assignmentString),
+  requests: (v) => blockList(v, "request", (k1, v1) => REQUEST[k1](v1)),
   check: (v) => assignmentString("check", v),
   grouping: (v) => assignmentString("grouping", v),
   group: (v) => assignmentString("group", v),
@@ -56,13 +54,13 @@ const WIDGET_DEFINTION = {
   viz_type: (v) => assignmentString("viz_type", v),
   live_span: (v) => assignmentString("live_span", v),
   time: (v) => (!!v.live_span ? assignmentString("live_span", v.live_span) : ""),
-  xaxis: (v) => convertLeafBlock("xaxis", v),
-  yaxis: (v) => convertLeafBlock("yaxis", v),
+  xaxis: (v) => block("xaxis", v, assignmentString),
+  yaxis: (v) => block("yaxis", v, assignmentString),
   no_group_hosts: (v) => assignmentString("no_group_hosts", v),
   no_metric_hosts: (v) => assignmentString("no_metric_hosts", v),
   node_type: (v) => assignmentString("node_type", v),
   scope: (v) => assignmentString("scope", v),
-  style: (v) => convertLeafBlock("style", v),
+  style: (v) => block("style", v, assignmentString),
   url: (v) => assignmentString("url", v),
   margin: (v) => assignmentString("margin", v),
   sizing: (v) => assignmentString("sizing", v),
@@ -94,10 +92,10 @@ const WIDGET_DEFINTION = {
   show_error_budget: (v) => assignmentString("show_error_budget", v),
   filters: (v) => assignmentString("filters", v),
   service: (v) => assignmentString("service", v),
-  event: (v) => convertLeafBlock("event", v),
+  event: (v) => block("event", v, assignmentString),
   legend_size: (v) => assignmentString("legend_size", v),
-  markers: (v) => mapArrayToBlocks(v, "marker", assignmentString),
-  right_yaxis: (v) => convertLeafBlock("right_yaxis", v),
+  markers: (v) => blockList(v, "marker", assignmentString),
+  right_yaxis: (v) => block("right_yaxis", v, assignmentString),
   env: (v) => assignmentString("env", v),
   span_name: (v) => assignmentString("span_name", v),
   display_format: (v) => assignmentString("display_format", v),
@@ -108,41 +106,59 @@ const WIDGET_DEFINTION = {
   show_latency: (v) => assignmentString("show_latency", v),
   show_resource_list: (v) => assignmentString("show_resource_list", v),
   size_format: (v) => assignmentString("size_format", v),
-  widget_layout: (v) => convertLeafBlock("widget_layout", v),
+  widget_layout: (v) => block("widget_layout", v, assignmentString),
   legend_layout: (_) => "",
   legend_columns: (_) => "",
+  global_time_target: (_) => "",
+};
+
+const REQUEST = {
+  apm_query: (v) => assignmentString("apm_query", v),
+  apm_stats_query: (v) => assignmentString("apm_stats_query", v),
+  change_type: (v) => assignmentString("change_type", v),
+  compare_to: (v) => assignmentString("compare_to", v),
+  increase_good: (v) => assignmentString("increase_good", v),
+  log_query: (v) => assignmentString("log_query", v),
+  order_by: (v) => assignmentString("order_by", v),
+  order_dir: (v) => assignmentString("order_dir", v),
+  process_query: (v) => assignmentString("process_query", v),
+  q: (v) => assignmentString("q", v),
+  rum_query: (v) => assignmentString("rum_query", v),
+  security_query: (v) => assignmentString("security_query", v),
+  show_present: (v) => assignmentString("show_present", v),
+  style: (v) => block("style", v, assignmentString),
+  display_type: (v) => assignmentString("display_type", v),
+  metadata: (v) => blockList(v, "metadata", assignmentString),
+  network_query: (v) => assignmentString("network_query", v),
+  on_right_axis: (v) => assignmentString("on_right_axis", v),
+  aggregator: (v) => assignmentString("aggregator", v),
+  alias: (v) => assignmentString("alias", v),
+  cell_display_mode: (v) => assignmentString("cell_display_mode", v),
+  conditional_formats: (v) => blockList(v, "conditional_formats", assignmentString),
+  limit: (v) => assignmentString("limit", v),
+  order: (v) => assignmentString("order", v),
 };
 
 function convertSort(v) {
-  return typeof v === "string" ? assignmentString("sort", v) : convertLeafBlock("sort", v);
+  return typeof v === "string"
+    ? assignmentString("sort", v)
+    : block("sort", v, assignmentString);
 }
 
 function convertWidgets(value) {
-  return mapArrayToBlocks(value, "widget", (k, v) => WIDGET[k](v));
+  return blockList(value, "widget", (k, v) => WIDGET[k](v));
 }
 
 function widgetDefintion(contents) {
-  let result = "\n";
+  let result = "";
   Object.entries(contents).forEach(([k, v]) => {
     result += WIDGET_DEFINTION[k](v);
   });
-  return `\n${contents.type}_definition {${result}\n}\n`;
+  let definitionType = contents.type === "slo" ? "service_level_objective" : contents.type;
+  return `\n${definitionType}_definition {${result}\n}`;
 }
 
-function mapArrayToBlocks(array, elemName, elemConverter) {
-  let result = "\n";
-
-  array.forEach((elem) => {
-    result += `\n${elemName} {`;
-    Object.entries(elem).forEach(([k, v]) => {
-      result += elemConverter(k, v);
-    });
-    result += "\n}";
-  });
-  return result + "\n";
-}
-
-export function convert(resourceName, dashboardData) {
+export function generateDashboardTerraformCode(resourceName, dashboardData) {
   let result = "";
   Object.entries(dashboardData).forEach(([k, v]) => {
     result += DASHBOARD[k](v);

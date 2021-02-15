@@ -4,103 +4,111 @@
   "widgets": [
     {
       "id": 6396751932460267,
+      "layout": { "x": 17, "y": 15, "width": 47, "height": 15 },
       "definition": {
+        "title": "",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "legend_layout": "vertical",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
         "type": "timeseries",
         "requests": [
           {
             "q": "avg:system.cpu.user{*}",
-            "display_type": "line",
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
               "line_width": "normal"
-            }
+            },
+            "display_type": "line"
           }
         ],
         "yaxis": {
-          "label": "",
           "scale": "linear",
+          "label": "",
+          "include_zero": true,
           "min": "auto",
-          "max": "auto",
-          "include_zero": true
+          "max": "auto"
         },
-        "title": "Avg of system.cpu.user over *",
-        "title_size": "16",
-        "title_align": "left",
-        "time": {},
-        "show_legend": false
-      },
-      "layout": {
-        "x": 17,
-        "y": 15,
-        "width": 47,
-        "height": 15
+        "markers": [
+          { "label": " y = 5 ", "value": "y = 5", "display_type": "error dashed" },
+          { "label": " y = 10 ", "value": "y = 10", "display_type": "error dashed" }
+        ]
       }
     },
     {
       "id": 6253560944158039,
+      "layout": { "x": 78, "y": 7, "width": 47, "height": 15 },
       "definition": {
-        "type": "heatmap",
-        "requests": [
-          {
-            "q": "avg:system.cpu.user{*}",
-            "style": {
-              "palette": "dog_classic"
-            }
-          }
-        ],
         "title": "Avg of system.cpu.user over *",
         "title_size": "16",
         "title_align": "left",
         "show_legend": false,
-        "time": {}
-      },
-      "layout": {
-        "x": 78,
-        "y": 7,
-        "width": 47,
-        "height": 15
+        "type": "heatmap",
+        "requests": [{ "q": "avg:system.cpu.user{*}", "style": { "palette": "dog_classic" } }]
       }
     },
     {
       "id": 6015349083435453,
+      "layout": { "x": 8, "y": 35, "width": 47, "height": 15 },
       "definition": {
-        "type": "query_value",
-        "requests": [
-          {
-            "q": "avg:datadog.agent.running{*}",
-            "aggregator": "avg",
-            "conditional_formats": [
-              {
-                "comparator": "<=",
-                "value": 1,
-                "palette": "white_on_green"
-              },
-              {
-                "comparator": ">",
-                "value": 1,
-                "palette": "white_on_yellow"
-              },
-              {
-                "comparator": ">=",
-                "value": 3,
-                "palette": "white_on_red"
-              }
-            ]
-          }
-        ],
         "title": "Avg of datadog.agent.running over *",
         "title_size": "16",
         "title_align": "left",
-        "time": {},
+        "type": "query_value",
+        "requests": [{ "q": "avg:datadog.agent.running{*}", "aggregator": "avg" }],
         "autoscale": true,
         "precision": 2
-      },
-      "layout": {
-        "x": 8,
-        "y": 35,
-        "width": 47,
-        "height": 15
+      }
+    },
+    {
+      "id": 2996973290756269,
+      "layout": { "x": 3, "y": -1, "width": 47, "height": 15 },
+      "definition": {
+        "title": "CPU for past day",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "legend_layout": "vertical",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "time": { "live_span": "1d" },
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:system.cpu.user{*}",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "label": "",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 6629276995437899,
+      "layout": { "x": 58, "y": 33, "width": 60, "height": 21 },
+      "definition": {
+        "title": "SLO: API requests",
+        "title_size": "16",
+        "title_align": "center",
+        "type": "slo",
+        "view_type": "detail",
+        "time_windows": ["7d", "month_to_date", "global_time"],
+        "slo_id": "301437ffe3e951a48fdbde5687d90609",
+        "show_error_budget": true,
+        "view_mode": "overall",
+        "global_time_target": "5"
       }
     }
   ],

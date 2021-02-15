@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`converts 1`] = `
+exports[`converts screenboards correctly 1`] = `
 "resource \\"datadog_dashboard\\" \\"sb_1\\" {
 title = \\"Laura's Screenboard 7 Sep 2020 13:18\\"
 description = \\"\\"
-
 widget {
 widget_layout {
 x = 17
@@ -13,11 +12,19 @@ width = 47
 height = 15
 }
 timeseries_definition {
-
 title = \\"\\"
 title_size = \\"16\\"
 title_align = \\"left\\"
 show_legend = false
+request {
+q = \\"avg:system.cpu.user{*}\\"
+style {
+palette = \\"dog_classic\\"
+line_type = \\"solid\\"
+line_width = \\"normal\\"
+}
+display_type = \\"line\\"
+}
 yaxis {
 scale = \\"linear\\"
 label = \\"\\"
@@ -25,7 +32,6 @@ include_zero = true
 min = \\"auto\\"
 max = \\"auto\\"
 }
-
 marker {
 label = \\" y = 5 \\"
 value = \\"y = 5\\"
@@ -36,9 +42,7 @@ label = \\" y = 10 \\"
 value = \\"y = 10\\"
 display_type = \\"error dashed\\"
 }
-
 }
-
 }
 widget {
 widget_layout {
@@ -48,13 +52,17 @@ width = 47
 height = 15
 }
 heatmap_definition {
-
 title = \\"Avg of system.cpu.user over *\\"
 title_size = \\"16\\"
 title_align = \\"left\\"
 show_legend = false
+request {
+q = \\"avg:system.cpu.user{*}\\"
+style {
+palette = \\"dog_classic\\"
 }
-
+}
+}
 }
 widget {
 widget_layout {
@@ -64,14 +72,16 @@ width = 47
 height = 15
 }
 query_value_definition {
-
 title = \\"Avg of datadog.agent.running over *\\"
 title_size = \\"16\\"
 title_align = \\"left\\"
+request {
+q = \\"avg:datadog.agent.running{*}\\"
+aggregator = \\"avg\\"
+}
 autoscale = true
 precision = 2
 }
-
 }
 widget {
 widget_layout {
@@ -81,12 +91,20 @@ width = 47
 height = 15
 }
 timeseries_definition {
-
 title = \\"CPU for past day\\"
 title_size = \\"16\\"
 title_align = \\"left\\"
 show_legend = false
 live_span = \\"1d\\"
+request {
+q = \\"avg:system.cpu.user{*}\\"
+style {
+palette = \\"dog_classic\\"
+line_type = \\"solid\\"
+line_width = \\"normal\\"
+}
+display_type = \\"line\\"
+}
 yaxis {
 scale = \\"linear\\"
 label = \\"\\"
@@ -94,16 +112,119 @@ include_zero = true
 min = \\"auto\\"
 max = \\"auto\\"
 }
-
-
 }
-
 }
-
-
-
+widget {
+widget_layout {
+x = 58
+y = 33
+width = 60
+height = 21
+}
+service_level_objective_definition {
+title = \\"SLO: API requests\\"
+title_size = \\"16\\"
+title_align = \\"center\\"
+view_type = \\"detail\\"
+time_windows = [\\"7d\\",\\"month_to_date\\",\\"global_time\\"]
+slo_id = \\"301437ffe3e951a48fdbde5687d90609\\"
+show_error_budget = true
+view_mode = \\"overall\\"
+}
+}
 layout_type = \\"free\\"
 is_read_only = false
 notify_list = []
+}"
+`;
+
+exports[`converts timeboards correctly 1`] = `
+"resource \\"datadog_dashboard\\" \\"tb_1\\" {
+title = \\"Laura's Timeboard 21 Aug 2020 16:30\\"
+description = \\"\\"
+widget {
+timeseries_definition {
+request {
+q = \\"avg:system.cpu.user{*}\\"
+display_type = \\"line\\"
+style {
+palette = \\"dog_classic\\"
+line_type = \\"solid\\"
+line_width = \\"normal\\"
+}
+}
+yaxis {
+label = \\"\\"
+scale = \\"linear\\"
+min = \\"auto\\"
+max = \\"auto\\"
+include_zero = true
+}
+title = \\"Avg of system.cpu.user over *\\"
+show_legend = false
+legend_size = \\"0\\"
+}
+}
+widget {
+query_value_definition {
+request {
+q = \\"avg:datadog.agent.running{*}\\"
+aggregator = \\"avg\\"
+conditional_formats {
+comparator = \\"<\\"
+value = 1
+palette = \\"white_on_red\\"
+}
+conditional_formats {
+comparator = \\">=\\"
+value = 1
+palette = \\"white_on_green\\"
+}
+}
+title = \\"Avg of datadog.agent.running over *\\"
+autoscale = true
+precision = 2
+}
+}
+template_variable {
+name = \\"major\\"
+default = \\"*\\"
+prefix = \\"agent_version_major\\"
+}
+template_variable {
+name = \\"minor\\"
+default = \\"*\\"
+prefix = \\"agent_version_minor\\"
+}
+template_variable {
+name = \\"patch\\"
+default = \\"*\\"
+prefix = \\"agent_version_patch\\"
+}
+layout_type = \\"ordered\\"
+is_read_only = false
+notify_list = []
+template_variable_preset {
+name = \\">= 7\\"
+template_variable {
+name = \\"major\\"
+value = \\"7\\"
+}
+}
+template_variable_preset {
+name = \\"Latest\\"
+template_variable {
+name = \\"major\\"
+value = \\"7\\"
+}
+template_variable {
+name = \\"minor\\"
+value = \\"21\\"
+}
+template_variable {
+name = \\"patch\\"
+value = \\"1\\"
+}
+}
 }"
 `;

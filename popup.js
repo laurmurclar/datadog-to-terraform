@@ -1,5 +1,5 @@
 import { generateTerraformCode } from "./monitor-generator.js";
-import { generateDashboardTerraformCode } from "./dashboard.js";
+import { generateDashboardTerraformCode } from "./dashboard-converter.js";
 
 function onClick() {
   var resourceName = document.getElementById("resourceName").value;

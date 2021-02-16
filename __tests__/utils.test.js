@@ -1,4 +1,4 @@
-import { assignmentString, map } from "./utils";
+import { assignmentString, map } from "../app/utils";
 
 it("assigns strings", () => {
   expect(assignmentString("i", 7)).toBe("\ni = 7");

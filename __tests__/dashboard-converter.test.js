@@ -1,7 +1,7 @@
-import { generateDashboardTerraformCode } from "./dashboard-converter";
-import screenboardData from "./examples/screenboard.json";
-import timeboardData from "./examples/timeboard.json";
-import badDashboardData from "./examples/bad-dashboard.json";
+import { generateDashboardTerraformCode } from "../app/dashboard-converter";
+import screenboardData from "../examples/screenboard.json";
+import timeboardData from "../examples/timeboard.json";
+import badDashboardData from "../examples/bad-dashboard.json";
 
 it("converts screenboards correctly", () => {
   expect(generateDashboardTerraformCode("sb_1", screenboardData)).toMatchSnapshot();

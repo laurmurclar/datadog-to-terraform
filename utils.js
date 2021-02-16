@@ -21,12 +21,16 @@ export function assignmentString(key, value) {
   return `\n${key} = ${displayValue}`;
 }
 
-export function block(name, contents, converter) {
+export function map(contents, converter) {
   let result = "";
   Object.entries(contents).forEach(([key, value]) => {
     result += converter(key, value);
   });
-  return `\n${name} {${result}\n}`;
+  return result;
+}
+
+export function block(name, contents, converter) {
+  return `\n${name} {${map(contents, converter)}\n}`;
 }
 
 export function blockList(array, blockName, contentConverter) {

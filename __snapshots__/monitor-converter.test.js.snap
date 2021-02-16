@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`converts correctly 1`] = `
+"resource \\"datadog_monitor\\" \\"monitor_1\\" {
+name = \\"CPU is high on {{host.name}}\\"
+type = \\"metric alert\\"
+query = \\"avg(last_4h):anomalies(avg:system.cpu.user{*}, 'basic', 2, direction='both', alert_window='last_15m', interval=60, count_default_zero='true') >= 1\\"
+message = <<EOF
+Some other info..
+
+{{#is_alert}}Possible explanations are x, y or z. Check blah, blah blah.{{/is_alert}} 
+
+{{#is_warning}}CPU is at an acceptable level again{{/is_warning}} 
+
+@all 
+EOF
+tags = [\\"team-cpu\\"]
+notify_audit = false
+locked = true
+timeout_h = 0
+new_host_delay = 300
+require_full_window = true
+notify_no_data = true
+renotify_interval = 0
+evaluation_delay = 70
+escalation_message = \\"\\"
+no_data_timeframe = 10
+include_tags = true
+monitor_thresholds {
+critical = 1
+critical_recovery = 0
+}
+monitor_threshold_windows {
+trigger_window = \\"last_15m\\"
+recovery_window = \\"last_15m\\"
+}
+priority = 2
+}"
+`;

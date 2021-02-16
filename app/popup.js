@@ -1,4 +1,4 @@
-import { generateTerraformCode } from "./monitor-generator.js";
+import { generateTerraformCode } from "./monitor-converter.js";
 import { generateDashboardTerraformCode } from "./dashboard-converter.js";
 
 function onClick() {

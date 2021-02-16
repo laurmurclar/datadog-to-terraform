@@ -1,0 +1,51 @@
+{
+  "title": "Title",
+  "description": "Description",
+  "widgets": [
+    {
+      "id": 6094222782053076,
+      "definition": {
+        "title": "ECS",
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2061680356847030,
+            "definition": {
+              "title": "Num Services Running",
+              "show_legend": false,
+              "legend_size": "0",
+              "type": "timeseries",
+              "requests": [
+                {
+                  "q": "sum:aws.ecs.service.running{$env,$client} by {servicename}",
+                  "on_right_yaxis": false,
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "area"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true,
+                "min": "auto",
+                "max": "auto"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "template_variables": [
+    { "name": "env", "default": "*", "prefix": "env" },
+    { "name": "client", "default": "*", "prefix": "client" }
+  ],
+  "layout_type": "ordered",
+  "is_read_only": true,
+  "notify_list": [],
+  "id": "dru-pjw-8zd"
+}

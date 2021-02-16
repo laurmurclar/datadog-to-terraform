@@ -1,5 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`converts dashboards with groups correctly 1`] = `
+"resource \\"datadog_dashboard\\" \\"group_db_1\\" {
+title = \\"Title\\"
+description = \\"Description\\"
+widget {
+group_definition {
+title = \\"ECS\\"
+layout_type = \\"ordered\\"
+widget {
+timeseries_definition {
+title = \\"Num Services Running\\"
+show_legend = false
+legend_size = \\"0\\"
+request {
+q = \\"sum:aws.ecs.service.running{$env,$client} by {servicename}\\"
+on_right_yaxis = false
+style {
+palette = \\"dog_classic\\"
+line_type = \\"solid\\"
+line_width = \\"normal\\"
+}
+display_type = \\"area\\"
+}
+yaxis {
+scale = \\"linear\\"
+include_zero = true
+min = \\"auto\\"
+max = \\"auto\\"
+}
+}
+}
+}
+}
+template_variable {
+name = \\"env\\"
+default = \\"*\\"
+prefix = \\"env\\"
+}
+template_variable {
+name = \\"client\\"
+default = \\"*\\"
+prefix = \\"client\\"
+}
+layout_type = \\"ordered\\"
+is_read_only = true
+notify_list = []
+}"
+`;
+
 exports[`converts screenboards correctly 1`] = `
 "resource \\"datadog_dashboard\\" \\"sb_1\\" {
 title = \\"Laura's Screenboard 7 Sep 2020 13:18\\"

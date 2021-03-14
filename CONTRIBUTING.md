@@ -44,11 +44,10 @@ Don't forget to review the updates and make sure only intended changes are inclu
 Only needed for user-facing changes!
 
 1. Bump the version in `manifest.json` and get changes merged to master
-1. **Chrome** - create a new release on the Github repo, tagged with the new version (this triggers the deployment)
-1. **Firefox** - create a .zip (`git archive -o dtt.zip HEAD`) and upload it to the Firefox store via [the developer hub](https://addons.mozilla.org/en-US/developers/addons)
+1. Create a .zip (`rm app.zip && zip -j app app/*`)
+1. Upload it to the Chrome and Firefox stores
 
 ### Notes:
 
-- If you don't bump the version in `manifest.json`, the upload to the Chrome Web Store will fail. It will look like everything passed in CircleCI until you dig into the logs of the "Publish" step.
 - It can take up to an hour for the changes to be reflected in the Chrome Web Store.
 - Your browser will automatically update the extension when ready, there's no need to re-download manually from the store.

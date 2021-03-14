@@ -4,7 +4,7 @@
   "widgets": [
     {
       "id": 6396751932460267,
-      "layout": { "x": 17, "y": 15, "width": 47, "height": 15 },
+      "layout": { "x": 3, "y": 17, "width": 47, "height": 15 },
       "definition": {
         "title": "",
         "title_size": "16",
@@ -39,7 +39,7 @@
     },
     {
       "id": 6253560944158039,
-      "layout": { "x": 78, "y": 7, "width": 47, "height": 15 },
+      "layout": { "x": 52, "y": 0, "width": 47, "height": 15 },
       "definition": {
         "title": "Avg of system.cpu.user over *",
         "title_size": "16",
@@ -51,7 +51,7 @@
     },
     {
       "id": 6015349083435453,
-      "layout": { "x": 8, "y": 35, "width": 47, "height": 15 },
+      "layout": { "x": 3, "y": 33, "width": 47, "height": 15 },
       "definition": {
         "title": "Avg of datadog.agent.running over *",
         "title_size": "16",
@@ -97,7 +97,7 @@
     },
     {
       "id": 6629276995437899,
-      "layout": { "x": 58, "y": 33, "width": 60, "height": 21 },
+      "layout": { "x": 3, "y": 50, "width": 60, "height": 21 },
       "definition": {
         "title": "SLO: API requests",
         "title_size": "16",
@@ -109,6 +109,21 @@
         "show_error_budget": true,
         "view_mode": "overall",
         "global_time_target": "5"
+      }
+    },
+    {
+      "id": 5597497359474697,
+      "layout": { "x": 52, "y": 17, "width": 47, "height": 22 },
+      "definition": {
+        "title": "",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "hostmap",
+        "requests": { "fill": { "q": "avg:system.cpu.user{*} by {host}" } },
+        "node_type": "host",
+        "no_metric_hosts": true,
+        "no_group_hosts": true,
+        "style": { "palette": "green_to_orange", "palette_flip": false }
       }
     }
   ],

@@ -37,7 +37,7 @@ const WIDGET_DEFINTION = {
   text_align: (v) => assignmentString("text_align", v),
   unit: (v) => assignmentString("unit", v),
   custom_links: (v) => blockList(v, "custom_link", assignmentString),
-  requests: (v) => blockList(v, "request", (k1, v1) => convertFromDefinition(REQUEST, k1, v1)),
+  requests: (v) => convertRequests(v),
   check: (v) => assignmentString("check", v),
   grouping: (v) => assignmentString("grouping", v),
   group: (v) => assignmentString("group", v),
@@ -139,6 +139,7 @@ const REQUEST = {
   conditional_formats: (v) => blockList(v, "conditional_formats", assignmentString),
   limit: (v) => assignmentString("limit", v),
   order: (v) => assignmentString("order", v),
+  fill: (v) => block("fill", v, assignmentString),
 };
 
 function convertSort(v) {
@@ -151,13 +152,18 @@ function convertWidgets(value) {
   return blockList(value, "widget", (k1, v1) => convertFromDefinition(WIDGET, k1, v1));
 }
 
+function convertRequests(value) {
+  if (Array.isArray(value)) {
+    return blockList(value, "request", (k, v) => convertFromDefinition(REQUEST, k, v));
+  }
+  return block("request", value, (k, v) => convertFromDefinition(REQUEST, k, v));
+}
+
 function widgetDefintion(contents) {
-  let result = "";
-  Object.entries(contents).forEach(([k, v]) => {
-    result += convertFromDefinition(WIDGET_DEFINTION, k, v);
-  });
   let definitionType = contents.type === "slo" ? "service_level_objective" : contents.type;
-  return `\n${definitionType}_definition {${result}\n}`;
+  return block(`${definitionType}_definition`, contents, (k, v) =>
+    convertFromDefinition(WIDGET_DEFINTION, k, v)
+  );
 }
 
 export function generateDashboardTerraformCode(resourceName, dashboardData) {

@@ -55,8 +55,8 @@ title = \\"Laura's Screenboard 7 Sep 2020 13:18\\"
 description = \\"\\"
 widget {
 widget_layout {
-x = 17
-y = 15
+x = 3
+y = 17
 width = 47
 height = 15
 }
@@ -95,8 +95,8 @@ display_type = \\"error dashed\\"
 }
 widget {
 widget_layout {
-x = 78
-y = 7
+x = 52
+y = 0
 width = 47
 height = 15
 }
@@ -115,8 +115,8 @@ palette = \\"dog_classic\\"
 }
 widget {
 widget_layout {
-x = 8
-y = 35
+x = 3
+y = 33
 width = 47
 height = 15
 }
@@ -165,8 +165,8 @@ max = \\"auto\\"
 }
 widget {
 widget_layout {
-x = 58
-y = 33
+x = 3
+y = 50
 width = 60
 height = 21
 }
@@ -179,6 +179,31 @@ time_windows = [\\"7d\\",\\"month_to_date\\",\\"global_time\\"]
 slo_id = \\"301437ffe3e951a48fdbde5687d90609\\"
 show_error_budget = true
 view_mode = \\"overall\\"
+}
+}
+widget {
+widget_layout {
+x = 52
+y = 17
+width = 47
+height = 22
+}
+hostmap_definition {
+title = \\"\\"
+title_size = \\"16\\"
+title_align = \\"left\\"
+request {
+fill {
+q = \\"avg:system.cpu.user{*} by {host}\\"
+}
+}
+node_type = \\"host\\"
+no_metric_hosts = true
+no_group_hosts = true
+style {
+palette = \\"green_to_orange\\"
+palette_flip = false
+}
 }
 }
 layout_type = \\"free\\"

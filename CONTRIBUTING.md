@@ -2,7 +2,8 @@ Thanks for your interest in contributing! If anything in here is unclear or outd
 
 # Development setup
 
-First, fork this repo
+1. Fork this repo
+1. Run `yarn install` in the project directory
 
 ## Chrome
 
@@ -49,5 +50,5 @@ Only needed for user-facing changes!
 
 ### Notes:
 
-- It can take up to an hour for the changes to be reflected in the Chrome Web Store.
+- It can take a while for the changes to be reflected in the browser addon stores.
 - Your browser will automatically update the extension when ready, there's no need to re-download manually from the store.

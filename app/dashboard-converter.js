@@ -120,7 +120,8 @@ const REQUEST = {
   change_type: (v) => assignmentString("change_type", v),
   compare_to: (v) => assignmentString("compare_to", v),
   increase_good: (v) => assignmentString("increase_good", v),
-  log_query: (v) => assignmentString("log_query", v),
+  log_query: (v) =>
+    block("log_query", v, (k1, v1) => convertFromDefinition(LOG_QUERY, k1, v1)),
   order_by: (v) => assignmentString("order_by", v),
   order_dir: (v) => assignmentString("order_dir", v),
   process_query: (v) => assignmentString("process_query", v),
@@ -140,6 +141,23 @@ const REQUEST = {
   limit: (v) => assignmentString("limit", v),
   order: (v) => assignmentString("order", v),
   fill: (v) => block("fill", v, assignmentString),
+};
+
+const LOG_QUERY = {
+  index: (v) => assignmentString("index", v),
+  compute: (v) => block("compute_query", v, assignmentString),
+  group_by: (v) =>
+    blockList(v, "group_by", (k1, v1) => convertFromDefinition(GROUP_BY, k1, v1)),
+  multi_compute: (v) => blockList(v, "multi_compute", assignmentString),
+  search: (v) => assignmentString("search_query", v.query),
+  search_query: (v) => assignmentString("search_query", v),
+};
+
+const GROUP_BY = {
+  facet: (v) => assignmentString("facet", v),
+  limit: (v) => assignmentString("limit", v),
+  sort: (v) => block("sort_query", v, assignmentString),
+  sort_query: (v) => block("sort_query", v, assignmentString),
 };
 
 function convertSort(v) {

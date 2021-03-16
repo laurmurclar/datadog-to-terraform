@@ -95,6 +95,42 @@ display_type = \\"error dashed\\"
 }
 widget {
 widget_layout {
+x = 3
+y = 17
+width = 47
+height = 15
+}
+timeseries_definition {
+title = \\"\\"
+title_size = \\"16\\"
+title_align = \\"left\\"
+request {
+log_query {
+index = \\"*\\"
+search_query = \\"status:(error OR emergency)\\"
+group_by {
+facet = \\"service\\"
+sort_query {
+order = \\"desc\\"
+aggregation = \\"count\\"
+}
+limit = 10
+}
+compute_query {
+aggregation = \\"count\\"
+}
+}
+style {
+palette = \\"dog_classic\\"
+line_type = \\"solid\\"
+line_width = \\"normal\\"
+}
+display_type = \\"line\\"
+}
+}
+}
+widget {
+widget_layout {
 x = 52
 y = 0
 width = 47

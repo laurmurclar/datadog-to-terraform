@@ -38,6 +38,45 @@
       }
     },
     {
+      "id": 6396751932460267,
+      "layout": { "x": 3, "y": 17, "width": 47, "height": 15 },
+      "definition": {
+        "title": "",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "timeseries",
+        "requests": [
+          {
+            "log_query": {
+              "index": "*",
+              "search": {
+                "query": "status:(error OR emergency)"
+              },
+              "group_by": [
+                {
+                  "facet": "service",
+                  "sort": {
+                    "order": "desc",
+                    "aggregation": "count"
+                  },
+                  "limit": 10
+                }
+              ],
+              "compute": {
+                "aggregation": "count"
+              }
+            },
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
       "id": 6253560944158039,
       "layout": { "x": 52, "y": 0, "width": 47, "height": 15 },
       "definition": {

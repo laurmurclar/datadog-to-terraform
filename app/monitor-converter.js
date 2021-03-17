@@ -29,6 +29,8 @@ const OPTIONS = {
   thresholds: (v) => block("monitor_thresholds", v, assignmentString),
   timeout_h: (v) => assignmentString("timeout_h", v),
   validate: (v) => assignmentString("timeout_h", v),
+  groupby_simple_monitor: (v) => assignmentString("groupby_simple_monitor", v),
+  silenced: (_) => "", // 2.23.0 deprecated
 };
 
 export function generateTerraformCode(resourceName, monitorData) {

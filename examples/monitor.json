@@ -9,6 +9,8 @@
     "notify_audit": false,
     "locked": true,
     "timeout_h": 0,
+    "silenced": {},
+    "groupby_simple_monitor": true,
     "new_host_delay": 300,
     "require_full_window": true,
     "notify_no_data": true,

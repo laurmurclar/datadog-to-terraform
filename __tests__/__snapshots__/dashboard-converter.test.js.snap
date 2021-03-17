@@ -242,6 +242,45 @@ palette_flip = false
 }
 }
 }
+widget {
+widget_layout {
+x = 25
+y = 5
+width = 61
+height = 25
+}
+manage_status_definition {
+title_size = \\"13\\"
+title_align = \\"left\\"
+summary_type = \\"combined\\"
+display_format = \\"list\\"
+color_preference = \\"text\\"
+hide_zero_counts = true
+show_last_triggered = true
+query = \\"tag:($monitor_env AND $app_group)\\"
+sort = \\"triggered,desc\\"
+}
+}
+widget {
+widget_layout {
+x = 117
+y = 5
+width = 20
+height = 25
+}
+note_definition {
+content = <<EOF
+\` Shared Dashbords\`
+https://app.datadoghq.com/dashboard/ezf-tjt-xcz
+EOF
+background_color = \\"vivid_orange\\"
+font_size = \\"18\\"
+text_align = \\"center\\"
+show_tick = false
+tick_pos = \\"50%\\"
+tick_edge = \\"left\\"
+}
+}
 layout_type = \\"free\\"
 is_read_only = false
 notify_list = []

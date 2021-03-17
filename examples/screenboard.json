@@ -164,6 +164,50 @@
         "no_group_hosts": true,
         "style": { "palette": "green_to_orange", "palette_flip": false }
       }
+    },
+    {
+      "id": 7056070493549668,
+      "layout": {
+        "x": 25,
+        "y": 5,
+        "width": 61,
+        "height": 25
+      },
+      "definition": {
+        "title_size": "13",
+        "title_align": "left",
+        "type": "manage_status",
+        "summary_type": "combined",
+        "display_format": "list",
+        "color_preference": "text",
+        "hide_zero_counts": true,
+        "show_last_triggered": true,
+        "query": "tag:($monitor_env AND $app_group)",
+        "sort": "triggered,desc",
+        "count": 50,
+        "start": 0
+      }
+    },
+    {
+      "id": 6280236466557720,
+      "layout": {
+        "x": 117,
+        "y": 5,
+        "width": 20,
+        "height": 25
+      },
+      "definition": {
+        "type": "note",
+        "content": "` Shared Dashbords`\nhttps://app.datadoghq.com/dashboard/ezf-tjt-xcz",
+        "background_color": "vivid_orange",
+        "font_size": "18",
+        "text_align": "center",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": false
+      }
     }
   ],
   "template_variables": [],

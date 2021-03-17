@@ -112,6 +112,10 @@ const WIDGET_DEFINTION = {
   legend_layout: (_) => "",
   legend_columns: (_) => "",
   global_time_target: (_) => "",
+  count: (_) => "", // 2.23.0 deprecated, see docs for widget.manage_status_definition
+  start: (_) => "", // 2.23.0 deprecated, see docs for widget.manage_status_definition
+  vertical_align: (_) => "", // 2.23.0 not described in docs, occurs in widget.note_defintion json
+  has_padding: (_) => "", // 2.23.0 not described in docs, occurs in widget.note_defintion json
 };
 
 const REQUEST = {

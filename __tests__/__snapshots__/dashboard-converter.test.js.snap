@@ -65,6 +65,8 @@ title = \\"\\"
 title_size = \\"16\\"
 title_align = \\"left\\"
 show_legend = false
+legend_layout = \\"vertical\\"
+legend_columns = [\\"avg\\",\\"min\\",\\"max\\",\\"value\\",\\"sum\\"]
 request {
 q = \\"avg:system.cpu.user{*}\\"
 style {
@@ -104,6 +106,7 @@ timeseries_definition {
 title = \\"\\"
 title_size = \\"16\\"
 title_align = \\"left\\"
+show_legend = false
 request {
 log_query {
 index = \\"*\\"
@@ -180,6 +183,8 @@ title = \\"CPU for past day\\"
 title_size = \\"16\\"
 title_align = \\"left\\"
 show_legend = false
+legend_layout = \\"vertical\\"
+legend_columns = [\\"avg\\",\\"min\\",\\"max\\",\\"value\\",\\"sum\\"]
 live_span = \\"1d\\"
 request {
 q = \\"avg:system.cpu.user{*}\\"
@@ -244,8 +249,8 @@ palette_flip = false
 }
 widget {
 widget_layout {
-x = 25
-y = 5
+x = 64
+y = 40
 width = 61
 height = 25
 }
@@ -263,8 +268,8 @@ sort = \\"triggered,desc\\"
 }
 widget {
 widget_layout {
-x = 117
-y = 5
+x = 101
+y = 1
 width = 20
 height = 25
 }
@@ -301,6 +306,38 @@ order = \\"desc\\"
 show_date_column = true
 show_message_column = true
 message_display = \\"expanded-md\\"
+}
+}
+widget {
+widget_layout {
+x = 64
+y = 66
+width = 47
+height = 15
+}
+timeseries_definition {
+title = \\"\\"
+title_size = \\"16\\"
+title_align = \\"left\\"
+show_legend = true
+legend_layout = \\"vertical\\"
+legend_columns = [\\"avg\\",\\"min\\",\\"max\\",\\"value\\",\\"sum\\"]
+request {
+q = \\"avg:system.cpu.user{*}\\"
+style {
+palette = \\"dog_classic\\"
+line_type = \\"solid\\"
+line_width = \\"normal\\"
+}
+display_type = \\"line\\"
+}
+yaxis {
+scale = \\"linear\\"
+label = \\"\\"
+include_zero = true
+min = \\"auto\\"
+max = \\"auto\\"
+}
 }
 }
 layout_type = \\"free\\"

@@ -271,7 +271,7 @@ height = 25
 note_definition {
 content = <<EOF
 \` Shared Dashbords\`
-https://app.datadoghq.com/dashboard/ezf-tjt-xcz
+https://app.datadoghq.com/dashboard/ezf-tjt-xcx
 EOF
 background_color = \\"vivid_orange\\"
 font_size = \\"18\\"
@@ -279,6 +279,28 @@ text_align = \\"center\\"
 show_tick = false
 tick_pos = \\"50%\\"
 tick_edge = \\"left\\"
+}
+}
+widget {
+widget_layout {
+x = 968
+y = -242
+width = 33
+height = 21
+}
+log_stream_definition {
+title = \\"Plugins\\"
+title_size = \\"13\\"
+title_align = \\"left\\"
+indexes = []
+query = \\"$dd_env $app_group status:(error OR emergency)\\"
+sort {
+column = \\"service\\"
+order = \\"desc\\"
+}
+show_date_column = true
+show_message_column = true
+message_display = \\"expanded-md\\"
 }
 }
 layout_type = \\"free\\"

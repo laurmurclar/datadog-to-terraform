@@ -64,7 +64,7 @@ timeseries_definition {
 title = \\"\\"
 title_size = \\"16\\"
 title_align = \\"left\\"
-show_legend = false
+show_legend = true
 legend_layout = \\"vertical\\"
 legend_columns = [\\"avg\\",\\"min\\",\\"max\\",\\"value\\",\\"sum\\"]
 request {
@@ -306,38 +306,6 @@ order = \\"desc\\"
 show_date_column = true
 show_message_column = true
 message_display = \\"expanded-md\\"
-}
-}
-widget {
-widget_layout {
-x = 64
-y = 66
-width = 47
-height = 15
-}
-timeseries_definition {
-title = \\"\\"
-title_size = \\"16\\"
-title_align = \\"left\\"
-show_legend = true
-legend_layout = \\"vertical\\"
-legend_columns = [\\"avg\\",\\"min\\",\\"max\\",\\"value\\",\\"sum\\"]
-request {
-q = \\"avg:system.cpu.user{*}\\"
-style {
-palette = \\"dog_classic\\"
-line_type = \\"solid\\"
-line_width = \\"normal\\"
-}
-display_type = \\"line\\"
-}
-yaxis {
-scale = \\"linear\\"
-label = \\"\\"
-include_zero = true
-min = \\"auto\\"
-max = \\"auto\\"
-}
 }
 }
 layout_type = \\"free\\"

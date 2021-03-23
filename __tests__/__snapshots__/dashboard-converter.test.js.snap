@@ -64,7 +64,9 @@ timeseries_definition {
 title = \\"\\"
 title_size = \\"16\\"
 title_align = \\"left\\"
-show_legend = false
+show_legend = true
+legend_layout = \\"vertical\\"
+legend_columns = [\\"avg\\",\\"min\\",\\"max\\",\\"value\\",\\"sum\\"]
 request {
 q = \\"avg:system.cpu.user{*}\\"
 style {
@@ -104,6 +106,7 @@ timeseries_definition {
 title = \\"\\"
 title_size = \\"16\\"
 title_align = \\"left\\"
+show_legend = false
 request {
 log_query {
 index = \\"*\\"
@@ -180,6 +183,8 @@ title = \\"CPU for past day\\"
 title_size = \\"16\\"
 title_align = \\"left\\"
 show_legend = false
+legend_layout = \\"vertical\\"
+legend_columns = [\\"avg\\",\\"min\\",\\"max\\",\\"value\\",\\"sum\\"]
 live_span = \\"1d\\"
 request {
 q = \\"avg:system.cpu.user{*}\\"
@@ -244,8 +249,8 @@ palette_flip = false
 }
 widget {
 widget_layout {
-x = 25
-y = 5
+x = 64
+y = 40
 width = 61
 height = 25
 }
@@ -263,15 +268,15 @@ sort = \\"triggered,desc\\"
 }
 widget {
 widget_layout {
-x = 117
-y = 5
+x = 101
+y = 1
 width = 20
 height = 25
 }
 note_definition {
 content = <<EOF
 \` Shared Dashbords\`
-https://app.datadoghq.com/dashboard/ezf-tjt-xcz
+https://app.datadoghq.com/dashboard/ezf-tjt-xcx
 EOF
 background_color = \\"vivid_orange\\"
 font_size = \\"18\\"
@@ -279,6 +284,28 @@ text_align = \\"center\\"
 show_tick = false
 tick_pos = \\"50%\\"
 tick_edge = \\"left\\"
+}
+}
+widget {
+widget_layout {
+x = 968
+y = -242
+width = 33
+height = 21
+}
+log_stream_definition {
+title = \\"Plugins\\"
+title_size = \\"13\\"
+title_align = \\"left\\"
+indexes = []
+query = \\"$dd_env $app_group status:(error OR emergency)\\"
+sort {
+column = \\"service\\"
+order = \\"desc\\"
+}
+show_date_column = true
+show_message_column = true
+message_display = \\"expanded-md\\"
 }
 }
 layout_type = \\"free\\"

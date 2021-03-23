@@ -109,13 +109,14 @@ const WIDGET_DEFINTION = {
   show_resource_list: (v) => assignmentString("show_resource_list", v),
   size_format: (v) => assignmentString("size_format", v),
   widget_layout: (v) => block("widget_layout", v, assignmentString),
-  legend_layout: (_) => "",
-  legend_columns: (_) => "",
+  legend_layout: (v) => assignmentString("legend_layout", v),
+  legend_columns: (v) => assignmentString("legend_columns", v),
   global_time_target: (_) => "",
   count: (_) => "", // 2.23.0 deprecated, see docs for widget.manage_status_definition
   start: (_) => "", // 2.23.0 deprecated, see docs for widget.manage_status_definition
-  vertical_align: (_) => "", // 2.23.0 not described in docs, occurs in widget.note_defintion json
-  has_padding: (_) => "", // 2.23.0 not described in docs, occurs in widget.note_defintion json
+  vertical_align: (_) => "", // 2.23.0 not described in docs, occurs in widget.note_definition json
+  has_padding: (_) => "", // 2.23.0 not described in docs, occurs in widget.note_definition json
+  logset: (_) => "", // 2.23.0 deprecated, see docs for widget.log_stream_definition
 };
 
 const REQUEST = {

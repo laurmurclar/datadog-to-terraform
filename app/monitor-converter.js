@@ -9,6 +9,7 @@ const MONITOR = {
   id: (_) => "",
   tags: (v) => assignmentString("tags", v),
   priority: (v) => assignmentString("priority", v),
+  classification: (v) => assignmentString("classification", v),
 };
 
 const OPTIONS = {

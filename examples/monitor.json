@@ -28,5 +28,6 @@
       "recovery_window": "last_15m"
     }
   },
-  "priority": 2
+  "priority": 2,
+  "classification": "log"
 }

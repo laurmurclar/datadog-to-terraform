@@ -26,6 +26,25 @@
     "threshold_windows": {
       "trigger_window": "last_15m",
       "recovery_window": "last_15m"
+    },
+    "queryConfig": {
+      "logset": {
+        "name": "*"
+      },
+      "track": "logs",
+      "timeRange": {
+        "to": 1616759698501,
+        "live": true,
+        "from": 1616745298501
+      },
+      "queryString": "source:my_source",
+      "indexes": ["*"],
+      "queryIsFailed": false
+    },
+    "aggregation": {
+      "metric": "count",
+      "type": "count",
+      "groupBy": "core_service"
     }
   },
   "priority": 2,

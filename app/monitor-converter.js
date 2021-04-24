@@ -9,7 +9,7 @@ const MONITOR = {
   id: (_) => "",
   tags: (v) => assignmentString("tags", v),
   priority: (v) => assignmentString("priority", v),
-  classification: (v) => assignmentString("classification", v),
+  classification: (v) => _, // not impletemented on datadog provider yet
 };
 
 const OPTIONS = {
@@ -31,6 +31,8 @@ const OPTIONS = {
   timeout_h: (v) => assignmentString("timeout_h", v),
   validate: (v) => assignmentString("timeout_h", v),
   groupby_simple_monitor: (v) => assignmentString("groupby_simple_monitor", v),
+  aggregation: (_) => "", // API now parses the query itself and so query_config is not required
+  queryConfig: (_) => "", // API now parses the query itself and so query_config is not required
   silenced: (_) => "", // 2.23.0 deprecated
 };
 

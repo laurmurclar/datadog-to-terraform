@@ -9,7 +9,7 @@ const MONITOR = {
   id: (_) => "",
   tags: (v) => assignmentString("tags", v),
   priority: (v) => assignmentString("priority", v),
-  classification: (v) => _, // not impletemented on datadog provider yet
+  classification: (_) => "", // not impletemented on datadog provider yet
 };
 
 const OPTIONS = {

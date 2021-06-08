@@ -19,7 +19,7 @@ it("converts timeboards correctly", () => {
 
 it("converts timeboards with groups correctly", () => {
   expect(
-    enerateDashboardTerraformCode("group_db_1", dashboardWithGroupData)
+    generateDashboardTerraformCode("group_db_1", dashboardWithGroupData)
   ).toMatchSnapshot();
 });
 

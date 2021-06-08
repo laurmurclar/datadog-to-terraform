@@ -1,19 +1,20 @@
 import { assignmentString, block, blockList, convertFromDefinition } from "./utils.js";
 
 const DASHBOARD = {
-  layout_type: (v) => assignmentString("layout_type", v),
   title: (v) => assignmentString("title", v),
   description: (v) => assignmentString("description", v),
+  url: (v) => assignmentString("url", v),
   widgets: (v) => convertWidgets(v),
-  id: (_) => "",
-  is_read_only: (v) => assignmentString("is_read_only", v),
-  notify_list: (v) => assignmentString("notify_list", v),
   template_variables: (v) => blockList(v, "template_variable", assignmentString),
   template_variable_presets: (v) =>
     blockList(v, "template_variable_preset", (k1, v1) =>
       convertFromDefinition(TEMPLATE_VARIABLE_PRESET, k1, v1)
     ),
-  url: (v) => assignmentString("url", v),
+  layout_type: (v) => assignmentString("layout_type", v),
+  is_read_only: (v) => assignmentString("is_read_only", v),
+  notify_list: (v) => assignmentString("notify_list", v),
+  reflow_type: (v) => assignmentString("reflow_type", v),
+  id: (_) => "",
 };
 
 const WIDGET = {
@@ -79,6 +80,7 @@ const WIDGET_DEFINTION = {
   show_last_triggered: (v) => assignmentString("show_last_triggered", v),
   summary_type: (v) => assignmentString("summary_type", v),
   content: (v) => assignmentString("content", v),
+  show_title: (v) => assignmentString("show_title", v),
   background_color: (v) => assignmentString("background_color", v),
   show_tick: (v) => assignmentString("show_tick", v),
   tick_edge: (v) => assignmentString("tick_edge", v),

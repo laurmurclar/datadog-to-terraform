@@ -1,51 +1,133 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`converts dashboards with groups correctly 1`] = `
-"resource \\"datadog_dashboard\\" \\"group_db_1\\" {
-title = \\"Title\\"
-description = \\"Description\\"
+exports[`converts dashbboards correctly 1`] = `
+"resource \\"datadog_dashboard\\" \\"dashboard_1\\" {
+title = \\"DueDiligence - Shared - Business\\"
+description = \\"\\"
 widget {
 group_definition {
-title = \\"ECS\\"
+title = \\"POST 422's\\"
+background_color = \\"vivid_yellow\\"
+show_title = true
 layout_type = \\"ordered\\"
 widget {
-timeseries_definition {
-title = \\"Num Services Running\\"
-show_legend = false
-legend_size = \\"0\\"
+log_stream_definition {
+title = \\"Logs\\"
+title_size = \\"16\\"
+title_align = \\"left\\"
+indexes = [\\"transformation\\"]
+query = <<EOF
+source:due_diligence @Properties.StatusCode:422 @http.method:POST $Environment $AppGroup -@Properties.ApiUser:IntegrationTests
+
+EOF
+sort {
+column = \\"service\\"
+order = \\"desc\\"
+}
+columns = [\\"service\\",\\"@Properties.ApiUser\\",\\"@Properties.ErrorCodes\\"]
+show_date_column = true
+show_message_column = false
+message_display = \\"inline\\"
+}
+widget_layout {
+x = 0
+y = 0
+width = 7
+height = 6
+}
+}
+widget {
+toplist_definition {
+title = \\"Error Codes\\"
+title_size = \\"16\\"
+title_align = \\"left\\"
 request {
-q = \\"sum:aws.ecs.service.running{$env,$client} by {servicename}\\"
-on_right_yaxis = false
+log_query {
+index = \\"transformation\\"
+search_query = \\"source:due_diligence @Properties.StatusCode:422 @http.method:POST $Environment $AppGroup -@Properties.ApiUser:IntegrationTests\\"
+group_by {
+facet = \\"@Properties.ErrorCodes\\"
+limit = 1000
+sort_query {
+order = \\"desc\\"
+aggregation = \\"count\\"
+}
+}
+compute_query {
+aggregation = \\"count\\"
+}
+}
+}
+}
+widget_layout {
+x = 7
+y = 0
+width = 5
+height = 3
+}
+}
+widget {
+timeseries_definition {
+title = \\"Across time\\"
+title_size = \\"16\\"
+title_align = \\"left\\"
+show_legend = true
+legend_layout = \\"horizontal\\"
+legend_columns = [\\"avg\\",\\"min\\",\\"max\\",\\"value\\",\\"sum\\"]
+request {
+log_query {
+index = \\"transformation\\"
+search_query = \\"source:due_diligence @Properties.StatusCode:422 @http.method:POST $Environment $AppGroup -@Properties.ApiUser:IntegrationTests\\"
+group_by {
+facet = \\"service\\"
+limit = 10
+sort_query {
+order = \\"desc\\"
+aggregation = \\"count\\"
+}
+}
+compute_query {
+aggregation = \\"count\\"
+}
+}
 style {
 palette = \\"dog_classic\\"
 line_type = \\"solid\\"
 line_width = \\"normal\\"
 }
-display_type = \\"area\\"
+display_type = \\"line\\"
 }
 yaxis {
 scale = \\"linear\\"
+label = \\"\\"
 include_zero = true
 min = \\"auto\\"
 max = \\"auto\\"
 }
 }
+widget_layout {
+x = 7
+y = 3
+width = 5
+height = 3
+}
 }
 }
 }
 template_variable {
-name = \\"env\\"
+name = \\"AppGroup\\"
 default = \\"*\\"
+prefix = \\"appgroup\\"
+}
+template_variable {
+name = \\"Environment\\"
+default = \\"prod\\"
 prefix = \\"env\\"
 }
-template_variable {
-name = \\"client\\"
-default = \\"*\\"
-prefix = \\"client\\"
-}
 layout_type = \\"ordered\\"
-is_read_only = true
+is_read_only = false
 notify_list = []
+reflow_type = \\"fixed\\"
 }"
 `;
 
@@ -262,7 +344,10 @@ display_format = \\"list\\"
 color_preference = \\"text\\"
 hide_zero_counts = true
 show_last_triggered = true
-query = \\"tag:($monitor_env AND $app_group)\\"
+query = <<EOF
+tag:($monitor_env AND $app_group)
+
+EOF
 sort = \\"triggered,desc\\"
 }
 }
@@ -298,7 +383,10 @@ title = \\"Plugins\\"
 title_size = \\"13\\"
 title_align = \\"left\\"
 indexes = []
-query = \\"$dd_env $app_group status:(error OR emergency)\\"
+query = <<EOF
+$dd_env $app_group status:(error OR emergency)
+
+EOF
 sort {
 column = \\"service\\"
 order = \\"desc\\"
@@ -402,5 +490,54 @@ name = \\"patch\\"
 value = \\"1\\"
 }
 }
+}"
+`;
+
+exports[`converts timeboards with groups correctly 1`] = `
+"resource \\"datadog_dashboard\\" \\"group_db_1\\" {
+title = \\"Title\\"
+description = \\"Description\\"
+widget {
+group_definition {
+title = \\"ECS\\"
+layout_type = \\"ordered\\"
+widget {
+timeseries_definition {
+title = \\"Num Services Running\\"
+show_legend = false
+legend_size = \\"0\\"
+request {
+q = \\"sum:aws.ecs.service.running{$env,$client} by {servicename}\\"
+on_right_yaxis = false
+style {
+palette = \\"dog_classic\\"
+line_type = \\"solid\\"
+line_width = \\"normal\\"
+}
+display_type = \\"area\\"
+}
+yaxis {
+scale = \\"linear\\"
+include_zero = true
+min = \\"auto\\"
+max = \\"auto\\"
+}
+}
+}
+}
+}
+template_variable {
+name = \\"env\\"
+default = \\"*\\"
+prefix = \\"env\\"
+}
+template_variable {
+name = \\"client\\"
+default = \\"*\\"
+prefix = \\"client\\"
+}
+layout_type = \\"ordered\\"
+is_read_only = true
+notify_list = []
 }"
 `;

@@ -4,7 +4,10 @@ exports[`converts correctly 1`] = `
 "resource \\"datadog_monitor\\" \\"monitor_1\\" {
 name = \\"CPU is high on {{host.name}}\\"
 type = \\"metric alert\\"
-query = \\"avg(last_4h):anomalies(avg:system.cpu.user{*}, 'basic', 2, direction='both', alert_window='last_15m', interval=60, count_default_zero='true') >= 1\\"
+query = <<EOF
+avg(last_4h):anomalies(avg:system.cpu.user{*}, 'basic', 2, direction='both', alert_window='last_15m', interval=60, count_default_zero='true') >= 1
+
+EOF
 message = <<EOF
 Some other info..
 

@@ -17,6 +17,7 @@ function literalString(value) {
 
 export function assignmentString(key, value) {
   if (value === null) return "";
+  if (key == "query" && !value.includes("\n")) value += "\n";
   const displayValue = literalString(value);
   return `\n${key} = ${displayValue}`;
 }

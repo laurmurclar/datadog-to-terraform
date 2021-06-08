@@ -1,0 +1,155 @@
+{
+  "title": "DueDiligence - Shared - Business",
+  "description": "",
+  "widgets": [
+    {
+      "id": 1039197738596052,
+      "definition": {
+        "title": "POST 422's",
+        "type": "group",
+        "background_color": "vivid_yellow",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6444990380447056,
+            "definition": {
+              "title": "Logs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "log_stream",
+              "indexes": ["transformation"],
+              "query": "source:due_diligence @Properties.StatusCode:422 @http.method:POST $Environment $AppGroup -@Properties.ApiUser:IntegrationTests",
+              "sort": {
+                "column": "service",
+                "order": "desc"
+              },
+              "columns": ["service", "@Properties.ApiUser", "@Properties.ErrorCodes"],
+              "show_date_column": true,
+              "show_message_column": false,
+              "message_display": "inline"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 7,
+              "height": 6
+            }
+          },
+          {
+            "id": 1114304104855592,
+            "definition": {
+              "title": "Error Codes",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "toplist",
+              "requests": [
+                {
+                  "log_query": {
+                    "index": "transformation",
+                    "search": {
+                      "query": "source:due_diligence @Properties.StatusCode:422 @http.method:POST $Environment $AppGroup -@Properties.ApiUser:IntegrationTests"
+                    },
+                    "group_by": [
+                      {
+                        "facet": "@Properties.ErrorCodes",
+                        "limit": 1000,
+                        "sort": {
+                          "order": "desc",
+                          "aggregation": "count"
+                        }
+                      }
+                    ],
+                    "compute": {
+                      "aggregation": "count"
+                    }
+                  }
+                }
+              ]
+            },
+            "layout": {
+              "x": 7,
+              "y": 0,
+              "width": 5,
+              "height": 3
+            }
+          },
+          {
+            "id": 6398915134912360,
+            "definition": {
+              "title": "Across time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "log_query": {
+                    "index": "transformation",
+                    "search": {
+                      "query": "source:due_diligence @Properties.StatusCode:422 @http.method:POST $Environment $AppGroup -@Properties.ApiUser:IntegrationTests"
+                    },
+                    "group_by": [
+                      {
+                        "facet": "service",
+                        "limit": 10,
+                        "sort": {
+                          "order": "desc",
+                          "aggregation": "count"
+                        }
+                      }
+                    ],
+                    "compute": {
+                      "aggregation": "count"
+                    }
+                  },
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "label": "",
+                "include_zero": true,
+                "min": "auto",
+                "max": "auto"
+              },
+              "markers": []
+            },
+            "layout": {
+              "x": 7,
+              "y": 3,
+              "width": 5,
+              "height": 3
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "AppGroup",
+      "default": "*",
+      "prefix": "appgroup"
+    },
+    {
+      "name": "Environment",
+      "default": "prod",
+      "prefix": "env"
+    }
+  ],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "id": "sas-d4u-bkx"
+}

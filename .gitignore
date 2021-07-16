@@ -1,5 +1,6 @@
 *.zip
 .DS_Store
+lib/
 node_modules/
 .idea
 *.iml

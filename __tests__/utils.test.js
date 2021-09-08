@@ -31,6 +31,7 @@ it("converts a block list", () => {
   ];
   expect(blockList(contents, "my_block", assignmentString)).toMatchInlineSnapshot(`
     "
+
     my_block {
     a_cool_key = \\"a cool value\\"
     another_key = \\"another value\\"

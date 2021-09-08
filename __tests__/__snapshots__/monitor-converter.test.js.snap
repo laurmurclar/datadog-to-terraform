@@ -15,26 +15,26 @@ Some other info..
 @all 
 EOF
 tags = [\\"team-cpu\\"]
-notify_audit = false
-locked = true
-timeout_h = 0
+escalation_message = \\"\\"
+evaluation_delay = 70
 groupby_simple_monitor = true
+include_tags = true
+locked = true
 new_host_delay = 300
-require_full_window = true
+no_data_timeframe = 10
+notify_audit = false
 notify_no_data = true
 renotify_interval = 0
-evaluation_delay = 70
-escalation_message = \\"\\"
-no_data_timeframe = 10
-include_tags = true
+require_full_window = true
+monitor_threshold_windows {
+recovery_window = \\"last_15m\\"
+trigger_window = \\"last_15m\\"
+}
 monitor_thresholds {
 critical = 1
 critical_recovery = 0
 }
-monitor_threshold_windows {
-trigger_window = \\"last_15m\\"
-recovery_window = \\"last_15m\\"
-}
+timeout_h = 0
 priority = 2
 }"
 `;

@@ -31,6 +31,7 @@ const OPTIONS = {
   validate: (v) => assignmentString("timeout_h", v),
   groupby_simple_monitor: (v) => assignmentString("groupby_simple_monitor", v),
   silenced: (_) => "", // 2.23.0 deprecated
+  new_group_delay: (v) => assignmentString("new_group_delay", v),
 };
 
 export function generateTerraformCode(resourceName, monitorData) {

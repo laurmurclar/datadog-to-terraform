@@ -8,6 +8,7 @@ const DASHBOARD = {
   id: (_) => "",
   is_read_only: (v) => assignmentString("is_read_only", v),
   notify_list: (v) => assignmentString("notify_list", v),
+  reflow_type: (v) => assignmentString("reflow_type", v),
   template_variables: (v) => blockList(v, "template_variable", assignmentString),
   template_variable_presets: (v) =>
     blockList(v, "template_variable_preset", (k1, v1) =>
@@ -146,6 +147,19 @@ const REQUEST = {
   limit: (v) => assignmentString("limit", v),
   order: (v) => assignmentString("order", v),
   fill: (v) => block("fill", v, assignmentString),
+  response_format: (v) => assignmentString("response_format", v),
+  formulas: (list) => blockList(list, "formulas", (k, v) => convertFromDefinition(FORMULA, k, v)),
+  queries: (list) => blockList(list, "queries", (k, v) => convertFromDefinition(QUERY, k, v)),
+};
+
+const FORMULA = {
+  formula: (v) => assignmentString("formula", v),
+};
+
+const QUERY = {
+  name: (v) => assignmentString("name", v),
+  data_source: (v) => assignmentString("data_source", v),
+  query: (v) => assignmentString("query", v),
 };
 
 const LOG_QUERY = {

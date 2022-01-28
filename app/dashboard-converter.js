@@ -14,6 +14,7 @@ const DASHBOARD = {
       convertFromDefinition(TEMPLATE_VARIABLE_PRESET, k1, v1)
     ),
   url: (v) => assignmentString("url", v),
+  reflow_type: (v) => assignmentString("reflow_type", v),
 };
 
 const WIDGET = {
@@ -30,6 +31,7 @@ const TEMPLATE_VARIABLE_PRESET = {
 const WIDGET_DEFINTION = {
   type: (_) => "",
   title: (v) => assignmentString("title", v),
+  show_title: (v) => assignmentString("shot_title", v),
   title_size: (v) => assignmentString("title_size", v),
   title_align: (v) => assignmentString("title_align", v),
   alert_id: (v) => assignmentString("alert_id", v),
@@ -38,6 +40,7 @@ const WIDGET_DEFINTION = {
   unit: (v) => assignmentString("unit", v),
   custom_links: (v) => blockList(v, "custom_link", assignmentString),
   requests: (v) => convertRequests(v),
+  events: (v) => convertEvents(v),
   check: (v) => assignmentString("check", v),
   grouping: (v) => assignmentString("grouping", v),
   group: (v) => assignmentString("group", v),
@@ -146,6 +149,33 @@ const REQUEST = {
   limit: (v) => assignmentString("limit", v),
   order: (v) => assignmentString("order", v),
   fill: (v) => block("fill", v, assignmentString),
+  formulas: (v) =>
+    blockList(v, "formulas", (k1, v1) => convertFromDefinition(FORMULA, k1, v1)),
+  queries: (v) => blockList(v, "queries", (k1, v1) => convertFromDefinition(QUERY, k1, v1)),
+  response_format: (v) => assignmentString("response_format", v),
+  size: (v) => block("size", v, (k1, v1) => convertFromDefinition(REQUEST_SIZE, k1, v1)),
+};
+
+const EVENT = {
+  q: (v) => assignmentString("q", v),
+  tags_execution: (v) => assignmentString("tags_execution", v),
+};
+
+const FORMULA = {
+  formula: (v) => assignmentString("formula", v),
+  alias: (v) => assignmentString("alias", v),
+};
+
+const REQUEST_SIZE = {
+  q: (v) => assignmentString("q", v),
+  log_query: (v) =>
+    block("log_query", v, (k1, v1) => convertFromDefinition(LOG_QUERY, k1, v1)),
+};
+
+const QUERY = {
+  query: (v) => assignmentString("query", v),
+  data_source: (v) => assignmentString("data_source", v),
+  name: (v) => assignmentString("name", v),
 };
 
 const LOG_QUERY = {
@@ -180,6 +210,13 @@ function convertRequests(value) {
     return blockList(value, "request", (k, v) => convertFromDefinition(REQUEST, k, v));
   }
   return block("request", value, (k, v) => convertFromDefinition(REQUEST, k, v));
+}
+
+function convertEvents(value) {
+  if (Array.isArray(value)) {
+    return blockList(value, "event", (k, v) => convertFromDefinition(EVENT, k, v));
+  }
+  return block("event", value, (k, v) => convertFromDefinition(EVENT, k, v));
 }
 
 function widgetDefintion(contents) {

@@ -1,14 +1,15 @@
-import { assignmentString, block, convertFromDefinition, map } from "./utils.js";
+import { assignmentString, block, convertFromDefinition } from "./utils.js";
 
 const MONITOR = {
   message: (v) => assignmentString("message", v),
   name: (v) => assignmentString("name", v),
   query: (v) => assignmentString("query", v),
   type: (v) => assignmentString("type", v),
-  options: (v) => map(v, (k1, v1) => convertFromDefinition(OPTIONS, k1, v1)),
+  options: (v) => block("options", v, (k1, v1) => convertFromDefinition(OPTIONS, k1, v1)),
   id: (_) => "",
   tags: (v) => assignmentString("tags", v),
   priority: (v) => assignmentString("priority", v),
+  classification: (v) => assignmentString("classification", v),
 };
 
 const OPTIONS = {
@@ -31,6 +32,47 @@ const OPTIONS = {
   validate: (v) => assignmentString("timeout_h", v),
   groupby_simple_monitor: (v) => assignmentString("groupby_simple_monitor", v),
   silenced: (_) => "", // 2.23.0 deprecated
+  queryConfig: (v) =>
+    block("queryConfig", v, (k1, v1) => convertFromDefinition(QUERY_CONFIG, k1, v1)),
+  aggregation: (v) =>
+    block("aggregation", v, (k1, v1) => convertFromDefinition(AGGREGATION, k1, v1)),
+  restriction_query: (v) => assignmentString("restriction_query", v),
+};
+
+const QUERY_CONFIG = {
+  logset: (v) => block("logset", v, (k1, v1) => convertFromDefinition(LOGSET, k1, v1)),
+  track: (v) => assignmentString("track", v),
+  timeRange: (v) =>
+    block("timeRange", v, (k1, v1) => convertFromDefinition(TIME_RANGE, k1, v1)),
+  queryString: (v) => assignmentString("queryString", v),
+  indexes: (v) => assignmentString("indexes", v),
+  queryIsFailed: (v) => assignmentString("queryIsFailed", v),
+  live: (v) => assignmentString("live", v),
+};
+
+const AGGREGATION = {
+  metric: (v) => assignmentString("metric", v),
+  type: (v) => assignmentString("type", v),
+  groupBy: (v) => assignmentString("groupBy", v),
+};
+
+const LOGSET = {
+  name: (v) => assignmentString("name", v),
+  type: (v) => assignmentString("type", v),
+  dailyLimit: (v) => assignmentString("dailyLimit", v),
+  rateLimited: (v) => assignmentString("rateLimited", v),
+  scopeId: (v) => assignmentString("scopeId", v),
+  retention: (v) => assignmentString("retention", v),
+  readDataAccess: (v) => assignmentString("readDataAccess", v),
+  id: (v) => assignmentString("id", v),
+  dailyQuotaDisabled: (v) => assignmentString("dailyQuota", v),
+  query: (v) => assignmentString("query", v),
+};
+
+const TIME_RANGE = {
+  to: (v) => assignmentString("to", v),
+  live: (v) => assignmentString("live", v),
+  from: (v) => assignmentString("from", v),
 };
 
 export function generateTerraformCode(resourceName, monitorData) {

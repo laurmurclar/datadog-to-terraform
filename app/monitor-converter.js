@@ -9,6 +9,16 @@ const MONITOR = {
   id: (_) => "",
   tags: (v) => assignmentString("tags", v),
   priority: (v) => assignmentString("priority", v),
+  multi: (v) => assignmentString("type", v),
+
+  // Internal fields
+  created: (_) => "",
+  created_at: (_) => "",
+  creator: (_) => "",
+  org_id: (_) => "",
+  modified: (_) => "",
+  overall_state_modified: (_) => "",
+  overall_state: (_) => "",
 };
 
 const OPTIONS = {
@@ -18,6 +28,7 @@ const OPTIONS = {
   force_delete: (v) => assignmentString("force_delete", v),
   include_tags: (v) => assignmentString("include_tags", v),
   locked: (v) => assignmentString("locked", v),
+  new_group_delay: (v) => assignmentString("new_group_delay", v),
   new_host_delay: (v) => assignmentString("new_host_delay", v),
   no_data_timeframe: (v) => assignmentString("no_data_timeframe", v),
   notify_audit: (v) => assignmentString("notify_audit", v),
@@ -31,6 +42,8 @@ const OPTIONS = {
   validate: (v) => assignmentString("timeout_h", v),
   groupby_simple_monitor: (v) => assignmentString("groupby_simple_monitor", v),
   silenced: (_) => "", // 2.23.0 deprecated
+  queryConfig: (_) => "", // Unused?
+  aggregation: (_) => "", // Unused?
 };
 
 export function generateTerraformCode(resourceName, monitorData) {

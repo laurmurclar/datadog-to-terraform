@@ -3,7 +3,8 @@ function literalString(value) {
     if (value.includes("\n")) {
       return `<<EOF\n${value}\nEOF`;
     }
-    return `"${value}"`;
+    let escaped = JSON.stringify(value).slice(1, -1);
+    return `"${escaped}"`;
   } else if (Array.isArray(value)) {
     let result = "[";
     value.forEach((elem, index) => {

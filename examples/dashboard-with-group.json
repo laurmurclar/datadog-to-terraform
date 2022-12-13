@@ -27,16 +27,14 @@
                   },
                   "display_type": "area",
                   "response_format": "event_list",
-                  "formulas": [
-                    { "formula": "query1" },
-                    { "formula": "query2" }
-                  ],
+                  "formulas": [{ "formula": "query1" }, { "formula": "query2" }],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
                       "query": "avg:system.disk.free{*}.rollup(avg, 60)"
-                    },{
+                    },
+                    {
                       "data_source": "metrics",
                       "name": "query1",
                       "query": "avg:system.disk.free{*}.rollup(avg, 60)"

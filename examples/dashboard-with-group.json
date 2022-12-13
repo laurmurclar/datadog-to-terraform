@@ -25,7 +25,21 @@
                     "line_type": "solid",
                     "line_width": "normal"
                   },
-                  "display_type": "area"
+                  "display_type": "area",
+                  "response_format": "event_list",
+                  "formulas": [{ "formula": "query1" }, { "formula": "query2" }],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.disk.free{*}.rollup(avg, 60)"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.disk.free{*}.rollup(avg, 60)"
+                    }
+                  ]
                 }
               ],
               "yaxis": {
@@ -47,5 +61,6 @@
   "layout_type": "ordered",
   "is_read_only": true,
   "notify_list": [],
+  "reflow_type": "auto",
   "id": "dru-pjw-8zd"
 }

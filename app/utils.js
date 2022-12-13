@@ -3,6 +3,7 @@ function literalString(value) {
     if (value.includes("\n")) {
       return `<<EOF\n${value}\nEOF`;
     }
+    value = value.replace(/"/g, "");
     return `"${value}"`;
   } else if (Array.isArray(value)) {
     let result = "[";

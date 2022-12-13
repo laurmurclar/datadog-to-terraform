@@ -148,12 +148,13 @@ const REQUEST = {
   order: (v) => assignmentString("order", v),
   fill: (v) => block("fill", v, assignmentString),
   response_format: (v) => assignmentString("response_format", v),
-  formulas: (list) => blockList(list, "formulas", (k, v) => convertFromDefinition(FORMULA, k, v)),
-  queries: (list) => blockList(list, "queries", (k, v) => convertFromDefinition(QUERY, k, v)),
+  formulas: (list) =>
+    blockList(list, "formula", (k, v) => convertFromDefinition(FORMULA, k, v)),
+  queries: (list) => blockList(list, "query", (k, v) => convertFromDefinition(QUERY, k, v)),
 };
 
 const FORMULA = {
-  formula: (v) => assignmentString("formula", v),
+  formula: (v) => assignmentString("formula_expression", v),
 };
 
 const QUERY = {

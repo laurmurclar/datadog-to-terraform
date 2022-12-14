@@ -15,6 +15,7 @@
     "require_full_window": true,
     "notify_no_data": true,
     "renotify_interval": 0,
+    "new_group_delay": 60,
     "evaluation_delay": 70,
     "escalation_message": "",
     "no_data_timeframe": 10,

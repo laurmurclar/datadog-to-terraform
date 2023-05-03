@@ -28,6 +28,7 @@ evaluation_delay = 70
 escalation_message = \\"\\"
 no_data_timeframe = 10
 include_tags = true
+on_missing_data = \\"default\\"
 monitor_thresholds {
 critical = 1
 critical_recovery = 0

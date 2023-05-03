@@ -34,6 +34,7 @@ const OPTIONS = {
   silenced: (_) => "", // 2.23.0 deprecated
   new_group_delay: (v) => assignmentString("new_group_delay", v),
   renotify_statuses: (v) => assignmentString("renotify_statuses", v),
+  on_missing_data: (v) => assignmentString("on_missing_data", v),
 };
 
 export function generateTerraformCode(resourceName, monitorData) {

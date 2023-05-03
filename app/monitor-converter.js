@@ -9,6 +9,7 @@ const MONITOR = {
   id: (_) => "",
   tags: (v) => assignmentString("tags", v),
   priority: (v) => assignmentString("priority", v),
+  restricted_roles: (v) => assignmentString("restricted_roles", v),
 };
 
 const OPTIONS = {
@@ -32,6 +33,7 @@ const OPTIONS = {
   groupby_simple_monitor: (v) => assignmentString("groupby_simple_monitor", v),
   silenced: (_) => "", // 2.23.0 deprecated
   new_group_delay: (v) => assignmentString("new_group_delay", v),
+  renotify_statuses: (v) => assignmentString("renotify_statuses", v),
 };
 
 export function generateTerraformCode(resourceName, monitorData) {

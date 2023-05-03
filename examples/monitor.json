@@ -29,12 +29,8 @@
       "trigger_window": "last_15m",
       "recovery_window": "last_15m"
     },
-		"renotify_statuses": [
-			"alert"
-		]
+    "renotify_statuses": ["alert"]
   },
   "priority": 2,
-	"restricted_roles": [
-		"5b647eb8-de36-11ed-aacf-da7ad0900002"
-	]
+  "restricted_roles": ["5b647eb8-de36-11ed-aacf-da7ad0900002"]
 }

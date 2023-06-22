@@ -28,6 +28,7 @@ evaluation_delay = 70
 escalation_message = \\"\\"
 no_data_timeframe = 10
 include_tags = true
+on_missing_data = \\"default\\"
 monitor_thresholds {
 critical = 1
 critical_recovery = 0
@@ -36,6 +37,8 @@ monitor_threshold_windows {
 trigger_window = \\"last_15m\\"
 recovery_window = \\"last_15m\\"
 }
+renotify_statuses = [\\"alert\\"]
 priority = 2
+restricted_roles = [\\"5b647eb8-de36-11ed-aacf-da7ad0900002\\"]
 }"
 `;
